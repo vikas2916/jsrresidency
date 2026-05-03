@@ -5,102 +5,44 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JSR Residency — Rohini, New Delhi</title>
 <style>
-/* ── RESET & BASE ── */
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidden;min-height:100vh}
-
-/* ── CSS VARIABLES ── */
 :root{
-  --gold:#C9A84C;
-  --gold2:#E8C97A;
-  --dark:#0a0907;
-  --dark2:#100f0a;
-  --card:#18160e;
-  --mid:#221f14;
-  --mid2:#2a261a;
-  --cream:#f0e8d8;
-  --cream2:#d8cdb8;
-  --muted:#8a7e68;
-  --muted2:#a89e88;
+  --gold:#C9A84C;--gold2:#E8C97A;
+  --dark:#0a0907;--dark2:#100f0a;--card:#18160e;--mid:#221f14;--mid2:#2a261a;
+  --cream:#f0e8d8;--cream2:#d8cdb8;--muted:#8a7e68;--muted2:#a89e88;
 }
-
-/* ── NAVIGATION ── */
-#mainNav{
-  position:fixed;top:0;left:0;right:0;z-index:999;
-  height:64px;display:flex;align-items:center;justify-content:space-between;
-  padding:0 40px;
-  background:rgba(10,9,7,0.97);
-  border-bottom:1px solid rgba(201,168,76,0.25);
-}
-.nav-logo{
-  font-size:1.4rem;font-weight:700;color:var(--gold);
-  letter-spacing:3px;cursor:pointer;text-transform:uppercase;
-}
+/* NAV */
+#mainNav{position:fixed;top:0;left:0;right:0;z-index:999;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(10,9,7,0.97);border-bottom:1px solid rgba(201,168,76,0.25)}
+.nav-logo{font-size:1.4rem;font-weight:700;color:var(--gold);letter-spacing:3px;cursor:pointer;text-transform:uppercase}
 .nav-logo span{color:var(--cream);font-weight:300}
-.nav-links{display:flex;gap:32px;list-style:none}
-.nav-links a{
-  color:#ccc;text-decoration:none;font-size:11px;font-weight:400;
-  letter-spacing:2.5px;text-transform:uppercase;font-family:Arial,sans-serif;
-  cursor:pointer;transition:color 0.2s;padding-bottom:2px;
-  border-bottom:1px solid transparent;
-}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:#ccc;text-decoration:none;font-size:11px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;font-family:Arial,sans-serif;cursor:pointer;transition:color 0.2s;padding-bottom:2px;border-bottom:1px solid transparent}
 .nav-links a:hover,.nav-links a.act{color:var(--gold);border-color:var(--gold)}
 .ham{display:none;flex-direction:column;gap:5px;cursor:pointer}
-.ham span{width:22px;height:1.5px;background:var(--cream);display:block;transition:0.3s}
+.ham span{width:22px;height:1.5px;background:var(--cream);display:block}
 
-/* ── PAGES ── */
-.pg{display:none;min-height:100vh;padding-top:64px}
-.pg.on{display:block}
-
-/* ══════════════════════════════════
-   HOME PAGE
-══════════════════════════════════ */
-#pgHome{
-  display:none;
-  min-height:100vh;padding-top:64px;
-  background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(201,168,76,0.06) 0%,transparent 70%),
-             linear-gradient(160deg,#0a0907 0%,#14110a 50%,#0a0907 100%);
-  align-items:center;justify-content:center;text-align:center;
-  position:relative;overflow:hidden;
-}
-#pgHome.on{display:flex}
-.home-grid-bg{
-  position:absolute;inset:0;pointer-events:none;
-  background-image:linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);
-  background-size:80px 80px;
-}
+/* HOME */
+#pgHome{position:fixed;inset:64px 0 0 0;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(201,168,76,0.07) 0%,transparent 70%),linear-gradient(160deg,#0a0907 0%,#14110a 50%,#0a0907 100%);overflow:hidden}
+#pgHome.hide{display:none}
+.home-grid-bg{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);background-size:80px 80px}
 .home-content{position:relative;z-index:2;padding:0 20px}
-.home-eyebrow{
-  font-size:10px;letter-spacing:5px;text-transform:uppercase;
-  color:var(--gold);margin-bottom:24px;font-family:Arial,sans-serif;font-weight:400;
-}
-.home-title{
-  font-size:clamp(52px,12vw,110px);font-weight:300;line-height:0.95;
-  color:var(--cream);margin-bottom:8px;letter-spacing:-1px;
-}
+.home-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;font-family:Arial,sans-serif}
+.home-title{font-size:clamp(52px,12vw,110px);font-weight:300;line-height:0.95;color:var(--cream);margin-bottom:8px}
 .home-title em{font-style:italic;color:var(--gold)}
 .home-bar{width:1px;height:56px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:28px auto}
 .home-sub{font-size:11px;letter-spacing:3px;color:var(--muted2);margin-bottom:40px;font-family:Arial,sans-serif}
-.btn-gold{
-  display:inline-block;padding:14px 40px;background:var(--gold);color:#0a0907;
-  font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
-  font-family:Arial,sans-serif;border:none;cursor:pointer;
-  transition:background 0.25s,transform 0.2s;
-}
+.btn-gold{display:inline-block;padding:14px 40px;background:var(--gold);color:#0a0907;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;font-family:Arial,sans-serif;border:none;cursor:pointer;transition:background 0.25s,transform 0.2s}
 .btn-gold:hover{background:var(--gold2);transform:translateY(-2px)}
-.btn-out{
-  display:inline-block;padding:14px 40px;border:1px solid var(--gold);
-  color:var(--gold);font-size:10px;font-weight:500;letter-spacing:3px;
-  text-transform:uppercase;font-family:Arial,sans-serif;
-  cursor:pointer;background:none;margin-left:16px;transition:all 0.25s;
-}
+.btn-out{display:inline-block;padding:14px 40px;border:1px solid var(--gold);color:var(--gold);font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;font-family:Arial,sans-serif;cursor:pointer;background:none;margin-left:16px;transition:all 0.25s}
 .btn-out:hover{background:var(--gold);color:#0a0907}
 
-/* ══════════════════════════════════
-   ABOUT PAGE
-══════════════════════════════════ */
+/* SCROLLABLE PAGES */
+.spg{display:none;min-height:100vh;padding-top:64px}
+.spg.show{display:block}
+
+/* ABOUT */
 #pgAbout{background:var(--dark2)}
 .sec-wrap{max-width:1060px;margin:0 auto;padding:80px 40px}
 .sec-eyebrow{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px;font-family:Arial,sans-serif}
@@ -112,24 +54,15 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .feat{background:var(--mid);border:1px solid rgba(201,168,76,0.15);padding:24px 20px;position:relative}
 .feat::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold)}
 .feat h4{font-size:28px;color:var(--gold);margin-bottom:6px;font-weight:300}
-.feat p{font-size:11px;color:var(--muted2);font-family:Arial,sans-serif;letter-spacing:0.5px}
+.feat p{font-size:11px;color:var(--muted2);font-family:Arial,sans-serif}
 
-/* ══════════════════════════════════
-   GALLERY PAGE
-══════════════════════════════════ */
+/* GALLERY */
 #pgGallery{background:var(--dark)}
 .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:32px}
-.g-box{
-  background:var(--mid);border:1px solid rgba(201,168,76,0.1);
-  aspect-ratio:4/3;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:10px;
-  position:relative;overflow:hidden;cursor:pointer;
-  transition:border-color 0.3s;
-}
+.g-box{background:var(--mid);border:1px solid rgba(201,168,76,0.1);aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;cursor:pointer;transition:border-color 0.3s}
 .g-box:nth-child(1){grid-column:span 2;aspect-ratio:unset;height:240px}
 .g-box:hover{border-color:var(--gold)}
-.g-ico{font-size:28px;opacity:0.2;transition:opacity 0.3s}
-.g-box:hover .g-ico{opacity:0.5}
+.g-ico{font-size:28px;opacity:0.2}
 .g-txt{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);font-family:Arial,sans-serif}
 .g-over{position:absolute;inset:0;background:rgba(201,168,76,0.08);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s}
 .g-over span{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;font-family:Arial,sans-serif}
@@ -142,42 +75,26 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .room-card p{font-size:12px;color:var(--muted2);line-height:1.8;font-family:Arial,sans-serif}
 .room-price{margin-top:14px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:Arial,sans-serif}
 
-/* ══════════════════════════════════
-   BOOK ROOM PAGE
-══════════════════════════════════ */
+/* BOOK */
 #pgBook{background:var(--dark2)}
-.book-form-wrap{
-  max-width:640px;margin:32px auto 0;
-  background:var(--mid);border:1px solid rgba(201,168,76,0.2);
-  padding:40px;position:relative;
-}
-.book-form-wrap::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--gold),rgba(201,168,76,0.2),transparent)}
+.book-wrap{max-width:640px;margin:32px auto 0;background:var(--mid);border:1px solid rgba(201,168,76,0.2);padding:40px;position:relative}
+.book-wrap::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--gold),rgba(201,168,76,0.2),transparent)}
 .bfg{margin-bottom:20px}
 .bfg label{display:block;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:7px;font-family:Arial,sans-serif;font-weight:600}
-.bfg input,.bfg select,.bfg textarea{
-  width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);
-  color:var(--cream);padding:12px 14px;font-family:Georgia,serif;font-size:14px;outline:none;
-  transition:border-color 0.3s;
-}
+.bfg input,.bfg select,.bfg textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);color:var(--cream);padding:12px 14px;font-family:Georgia,serif;font-size:14px;outline:none;transition:border-color 0.3s}
 .bfg input:focus,.bfg select:focus,.bfg textarea:focus{border-color:var(--gold)}
 .bfg textarea{resize:vertical;min-height:100px}
 .bfg select option{background:var(--mid);color:var(--cream)}
 .bfg select{-webkit-appearance:none;appearance:none;cursor:pointer}
 .brow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.book-btn{
-  width:100%;padding:14px;background:var(--gold);color:#0a0907;border:none;cursor:pointer;
-  font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;
-  text-transform:uppercase;margin-top:6px;transition:background 0.25s,transform 0.2s;
-}
+.book-btn{width:100%;padding:14px;background:var(--gold);color:#0a0907;border:none;cursor:pointer;font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-top:6px;transition:background 0.25s,transform 0.2s}
 .book-btn:hover{background:var(--gold2);transform:translateY(-2px)}
 .book-btn:disabled{opacity:0.55;cursor:not-allowed;transform:none}
-.book-msg{font-size:13px;padding:12px;margin-top:14px;text-align:center;display:none;font-family:Arial,sans-serif}
-.book-msg.ok{color:#7ecb8f;background:rgba(126,203,143,0.08);border:1px solid rgba(126,203,143,0.25);display:block}
-.book-msg.err{color:#e07474;background:rgba(224,116,116,0.08);border:1px solid rgba(224,116,116,0.25);display:block}
+.msg{font-size:13px;padding:12px;margin-top:14px;text-align:center;display:none;font-family:Arial,sans-serif}
+.msg.ok{color:#7ecb8f;background:rgba(126,203,143,0.08);border:1px solid rgba(126,203,143,0.25);display:block}
+.msg.err{color:#e07474;background:rgba(224,116,116,0.08);border:1px solid rgba(224,116,116,0.25);display:block}
 
-/* ══════════════════════════════════
-   CONTACT PAGE
-══════════════════════════════════ */
+/* CONTACT */
 #pgContact{background:var(--dark)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:32px;align-items:start}
 .contact-block h3{font-size:28px;font-weight:300;color:var(--gold);margin-bottom:36px}
@@ -196,116 +113,68 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .nearby p{font-size:12px;color:var(--muted2);line-height:2.2;font-family:Arial,sans-serif}
 .nearby strong{color:var(--cream)}
 
-/* ══════════════════════════════════
-   FOOTER
-══════════════════════════════════ */
-#mainFoot{
-  background:#050403;border-top:1px solid rgba(201,168,76,0.15);
-  padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
-}
+/* FOOTER */
+#mainFoot{background:#050403;border-top:1px solid rgba(201,168,76,0.15);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .foot-logo{font-size:16px;font-weight:700;color:var(--gold);letter-spacing:3px;text-transform:uppercase}
 #mainFoot p{font-size:11px;color:var(--muted);font-family:Arial,sans-serif}
 #mainFoot a{color:var(--gold);text-decoration:none}
+.hide-foot{display:none!important}
 
-/* ══════════════════════════════════
-   ADMIN LOGIN
-══════════════════════════════════ */
-#pgAdmin{
-  background:var(--dark2);display:none;
-  min-height:100vh;padding-top:64px;
-  align-items:center;justify-content:center;
-}
-#pgAdmin.on{display:flex}
-.admin-card{
-  background:var(--mid);border:1px solid rgba(201,168,76,0.22);
-  padding:44px 40px;width:100%;max-width:400px;position:relative;
-}
+/* ADMIN LOGIN */
+#pgAdmin{display:none;min-height:100vh;padding-top:64px;background:var(--dark2);align-items:center;justify-content:center}
+#pgAdmin.show{display:flex}
+.admin-card{background:var(--mid);border:1px solid rgba(201,168,76,0.22);padding:44px 40px;width:100%;max-width:400px;position:relative}
 .admin-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--gold),transparent)}
 .admin-logo{text-align:center;margin-bottom:32px}
 .admin-logo h2{font-size:26px;font-weight:300;color:var(--cream)}
 .admin-logo p{font-size:10px;color:var(--muted2);letter-spacing:2px;text-transform:uppercase;font-family:Arial,sans-serif;margin-top:6px}
 .afg{margin-bottom:18px}
 .afg label{display:block;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:7px;font-family:Arial,sans-serif;font-weight:600}
-.afg input{
-  width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);
-  color:var(--cream);padding:12px 14px;font-family:Georgia,serif;font-size:14px;outline:none;
-  transition:border-color 0.3s;
-}
+.afg input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);color:var(--cream);padding:12px 14px;font-family:Georgia,serif;font-size:14px;outline:none;transition:border-color 0.3s}
 .afg input:focus{border-color:var(--gold)}
-.login-btn{
-  width:100%;padding:13px;background:var(--gold);color:#0a0907;border:none;cursor:pointer;
-  font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;
-  text-transform:uppercase;transition:background 0.25s;
-}
+.login-btn{width:100%;padding:13px;background:var(--gold);color:#0a0907;border:none;cursor:pointer;font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;transition:background 0.25s}
 .login-btn:hover{background:var(--gold2)}
 .login-btn:disabled{opacity:0.6;cursor:not-allowed}
-.login-err{font-size:12px;color:#e07474;text-align:center;margin-top:12px;padding:10px;background:rgba(224,116,116,0.08);border:1px solid rgba(224,116,116,0.2);display:none;font-family:Arial,sans-serif}
+.lerr{font-size:12px;color:#e07474;text-align:center;margin-top:12px;padding:10px;background:rgba(224,116,116,0.08);border:1px solid rgba(224,116,116,0.2);display:none;font-family:Arial,sans-serif}
 
-/* ══════════════════════════════════
-   ADMIN DASHBOARD
-══════════════════════════════════ */
+/* ADMIN PANEL */
 #pgDash{display:none;min-height:100vh;padding-top:64px}
-#pgDash.on{display:flex}
-.sidebar{
-  width:220px;background:var(--mid);border-right:1px solid rgba(201,168,76,0.15);
-  display:flex;flex-direction:column;min-height:calc(100vh - 64px);flex-shrink:0;
-}
+#pgDash.show{display:flex}
+.sidebar{width:220px;background:var(--mid);border-right:1px solid rgba(201,168,76,0.15);display:flex;flex-direction:column;min-height:calc(100vh - 64px);flex-shrink:0}
 .sb-brand{padding:20px 18px 16px;border-bottom:1px solid rgba(201,168,76,0.12)}
 .sb-brand h3{font-size:16px;font-weight:500;color:var(--gold)}
 .sb-brand span{font-size:11px;color:var(--muted2);font-family:Arial,sans-serif}
 .gdot{width:8px;height:8px;background:var(--gold);border-radius:50%;display:inline-block;margin-right:7px;vertical-align:middle}
 .sb-nav{padding:8px 0;flex:1}
-.sb-item{
-  display:flex;align-items:center;gap:10px;padding:13px 18px;cursor:pointer;
-  font-size:13px;color:var(--muted2);border-left:2px solid transparent;
-  transition:all 0.2s;font-family:Arial,sans-serif;
-}
+.sb-item{display:flex;align-items:center;gap:10px;padding:13px 18px;cursor:pointer;font-size:13px;color:var(--muted2);border-left:2px solid transparent;transition:all 0.2s;font-family:Arial,sans-serif}
 .sb-item:hover{background:rgba(201,168,76,0.05);color:var(--cream)}
 .sb-item.on{background:rgba(201,168,76,0.09);color:var(--gold);border-left-color:var(--gold);font-weight:500}
 .sb-foot{padding:14px 18px;border-top:1px solid rgba(201,168,76,0.12)}
-.sb-logout{
-  width:100%;padding:10px;background:transparent;border:1px solid rgba(201,168,76,0.2);
-  color:var(--muted2);cursor:pointer;font-family:Arial,sans-serif;font-size:12px;
-  letter-spacing:1px;transition:all 0.2s;
-}
+.sb-logout{width:100%;padding:10px;background:transparent;border:1px solid rgba(201,168,76,0.2);color:var(--muted2);cursor:pointer;font-family:Arial,sans-serif;font-size:12px;letter-spacing:1px;transition:all 0.2s}
 .sb-logout:hover{background:rgba(224,116,116,0.1);color:#e07474;border-color:rgba(224,116,116,0.3)}
 .main-area{flex:1;overflow-y:auto;background:var(--dark2)}
-.a-topbar{
-  background:var(--mid);border-bottom:1px solid rgba(201,168,76,0.12);
-  padding:14px 22px;display:flex;align-items:center;justify-content:space-between;
-}
+.a-topbar{background:var(--mid);border-bottom:1px solid rgba(201,168,76,0.12);padding:14px 22px;display:flex;align-items:center;justify-content:space-between}
 .a-topbar h2{font-size:20px;font-weight:300;color:var(--cream)}
 .a-topbar .meta{font-size:11px;color:var(--muted2);font-family:Arial,sans-serif}
 .a-page{padding:22px;display:none}
 .a-page.on{display:block}
-
-/* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
 .stat{background:var(--mid);border:1px solid rgba(201,168,76,0.12);padding:20px;text-align:center}
 .stat .n{font-size:36px;color:var(--gold);font-weight:300}
 .stat .l{font-size:9px;color:var(--muted2);letter-spacing:2px;text-transform:uppercase;font-family:Arial,sans-serif;margin-top:4px}
-
-/* TABLE */
 .tcard{background:var(--mid);border:1px solid rgba(201,168,76,0.12);margin-bottom:20px}
 .tcard-head{padding:14px 18px;border-bottom:1px solid rgba(201,168,76,0.1);font-size:14px;font-weight:500;color:var(--cream2);display:flex;justify-content:space-between;align-items:center}
-.dtable{width:100%;border-collapse:collapse;font-size:12px;font-family:Arial,sans-serif}
+.dtable{width:100%;border-collapse:collapse;font-size:12px;font-family:Arial,sans-serif;table-layout:fixed}
 .dtable th{padding:10px 14px;text-align:left;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:2px;background:rgba(201,168,76,0.05);border-bottom:1px solid rgba(201,168,76,0.1);font-weight:500}
 .dtable td{padding:11px 14px;border-bottom:1px solid rgba(201,168,76,0.07);color:var(--cream2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dtable tr:last-child td{border-bottom:none}
 .dtable tr:hover td{background:rgba(201,168,76,0.03)}
-.badge{display:inline-block;padding:3px 10px;font-size:10px;font-family:Arial,sans-serif;letter-spacing:0.5px}
-.badge-in{background:rgba(126,203,143,0.1);color:#7ecb8f;border:1px solid rgba(126,203,143,0.2)}
-
-/* GUEST FORM */
+.badge-in{display:inline-block;padding:3px 10px;font-size:10px;font-family:Arial,sans-serif;background:rgba(126,203,143,0.1);color:#7ecb8f;border:1px solid rgba(126,203,143,0.2)}
 .fsec{background:var(--mid);border:1px solid rgba(201,168,76,0.12);padding:22px;margin-bottom:14px}
 .fsec-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid rgba(201,168,76,0.1);font-family:Arial,sans-serif;font-weight:600}
 .gfg{margin-bottom:14px}
 .gfg label{display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);margin-bottom:6px;font-family:Arial,sans-serif;font-weight:500}
-.gfg input,.gfg select,.gfg textarea{
-  width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(201,168,76,0.18);
-  color:var(--cream);padding:10px 12px;font-family:Georgia,serif;font-size:13px;outline:none;
-  transition:border-color 0.25s;
-}
+.gfg input,.gfg select,.gfg textarea{width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(201,168,76,0.18);color:var(--cream);padding:10px 12px;font-family:Georgia,serif;font-size:13px;outline:none;transition:border-color 0.25s}
 .gfg input:focus,.gfg select:focus,.gfg textarea:focus{border-color:var(--gold)}
 .gfg textarea{resize:vertical;min-height:75px}
 .gfg select option{background:var(--mid);color:var(--cream)}
@@ -315,7 +184,7 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .upload-lbl{border:1px dashed rgba(201,168,76,0.25);background:rgba(201,168,76,0.03);padding:20px;text-align:center;cursor:pointer;transition:border-color 0.25s;display:block}
 .upload-lbl:hover{border-color:var(--gold)}
 .upload-lbl input[type=file]{display:none}
-.upload-lbl .u-ico{font-size:24px;opacity:0.25;margin-bottom:8px;display:block}
+.u-ico{font-size:24px;opacity:0.25;margin-bottom:8px;display:block}
 .upload-lbl p{font-size:12px;color:var(--muted2);font-family:Arial,sans-serif}
 .upload-lbl small{font-size:10px;color:var(--muted);font-family:Arial,sans-serif}
 .uname{font-size:11px;color:#7ecb8f;margin-top:7px;font-family:Arial,sans-serif}
@@ -330,19 +199,15 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .succ-bar.on{display:flex}
 .btn-viewpdf{padding:6px 16px;background:#7ecb8f;color:#041208;border:none;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:1px;margin-left:auto;font-family:Arial,sans-serif}
 
-/* ══════════════════════════════════
-   PDF PAGE
-══════════════════════════════════ */
+/* PDF */
 #pgPDF{display:none;min-height:100vh;padding-top:64px;background:var(--dark2)}
-#pgPDF.on{display:block}
+#pgPDF.show{display:block}
 .pdf-actions{padding:16px 28px;display:flex;gap:12px;align-items:center}
 .btn-back{padding:9px 20px;background:transparent;border:1px solid rgba(201,168,76,0.22);color:var(--muted2);cursor:pointer;font-family:Arial,sans-serif;font-size:11px;letter-spacing:1px}
 .btn-back:hover{border-color:var(--gold);color:var(--cream)}
 .btn-print{padding:9px 24px;background:var(--gold);color:#0a0907;border:none;cursor:pointer;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
 .btn-print:hover{background:var(--gold2)}
 .pdf-outer{max-width:800px;margin:0 auto;padding:0 20px 40px}
-
-/* PDF DOCUMENT STYLES */
 .pdf-doc{background:#fff;color:#111;font-family:Arial,sans-serif;font-size:12px;padding:38px 42px}
 .pdf-doc *{box-sizing:border-box}
 .pdf-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #C9A84C;padding-bottom:18px;margin-bottom:22px}
@@ -368,55 +233,41 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .pdf-sign-box p{font-size:8.5px;color:#888;text-transform:uppercase;letter-spacing:1px;text-align:center}
 .pdf-foot-bar{background:#080808;color:#f0e8d8;padding:9px 18px;margin-top:20px;display:flex;justify-content:space-between;align-items:center}
 .pdf-foot-bar span{font-size:9px;letter-spacing:0.5px}
-
-/* ══════════════════════════════════
-   SPINNER & UTILITIES
-══════════════════════════════════ */
-.spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(10,9,7,0.3);border-top-color:#0a0907;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:5px}
+.spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(10,9,7,0.25);border-top-color:#0a0907;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:5px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.fadeIn{animation:fadeIn 0.5s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-/* ══════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════ */
+/* RESPONSIVE */
 @media(max-width:900px){
   #mainNav{padding:0 20px}
   .ham{display:flex}
-  .nav-links{
-    position:fixed;top:64px;left:0;right:0;background:var(--mid);
-    flex-direction:column;align-items:center;padding:0;gap:0;
-    max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s;
-    border-top:1px solid rgba(201,168,76,0.15);z-index:998;
-  }
+  .nav-links{position:fixed;top:64px;left:0;right:0;background:var(--mid);flex-direction:column;align-items:center;padding:0;gap:0;max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s;border-top:1px solid rgba(201,168,76,0.15);z-index:998}
   .nav-links.open{max-height:500px;padding:20px 0;gap:20px}
   .about-grid,.contact-grid,.brow,.g2,.g3{grid-template-columns:1fr}
   .gallery-grid{grid-template-columns:1fr 1fr}
   .g-box:nth-child(1){height:160px}
   .rooms-row,.stats-row{grid-template-columns:1fr 1fr}
   .sec-wrap{padding:60px 20px}
-  .sidebar{width:180px}
-  .book-form-wrap{padding:24px 18px;margin:24px 16px 0}
+  .book-wrap{padding:24px 18px;margin:24px 16px 0}
   .btn-out{margin-left:0;margin-top:12px;display:block}
   #mainFoot{padding:16px 20px;flex-direction:column;text-align:center}
+  .sidebar{width:185px}
 }
 @media(max-width:580px){
   .rooms-row,.stats-row{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .feat-grid{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:1fr 1fr}
   .pdf-body-row{flex-direction:column}
   .pdf-g2,.pdf-g3,.pdf-signs{grid-template-columns:1fr}
 }
 @media print{
   #mainNav,#pgHome,#pgAbout,#pgGallery,#pgBook,#pgContact,#mainFoot,#pgAdmin,#pgDash,.pdf-actions{display:none!important}
   #pgPDF{display:block!important;padding-top:0!important}
-  .pdf-doc{box-shadow:none!important;padding:12px!important}
+  .pdf-doc{padding:12px!important}
 }
 </style>
 </head>
 <body>
 
-<!-- ════════════════════ NAVIGATION ════════════════════ -->
+<!-- NAV -->
 <nav id="mainNav">
   <div class="nav-logo" onclick="go('home')">JSR <span>Residency</span></div>
   <ul class="nav-links" id="navLinks">
@@ -427,26 +278,26 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
     <li><a onclick="go('contact')" data-p="contact">Contact Us</a></li>
     <li><a onclick="go('admin')" data-p="admin" style="color:var(--gold)">&#128274; Admin</a></li>
   </ul>
-  <div class="ham" id="hamBtn" onclick="toggleNav()">
+  <div class="ham" id="hamBtn" onclick="document.getElementById('navLinks').classList.toggle('open')">
     <span></span><span></span><span></span>
   </div>
 </nav>
 
-<!-- ════════════════════ HOME ════════════════════ -->
-<div id="pgHome" class="on">
+<!-- HOME -->
+<div id="pgHome">
   <div class="home-grid-bg"></div>
-  <div class="home-content fadeIn">
+  <div class="home-content">
     <div class="home-eyebrow">Welcome to</div>
     <h1 class="home-title">JSR<br><em>Residency</em></h1>
     <div class="home-bar"></div>
-    <p class="home-sub">Rohini, New Delhi &nbsp;&bull;&nbsp; Comfort Meets Elegance</p>
+    <p class="home-sub">Rohini, New Delhi &bull; Comfort Meets Elegance</p>
     <button class="btn-gold" onclick="go('book')">Book Your Room</button>
     <button class="btn-out" onclick="go('about')">Discover More</button>
   </div>
 </div>
 
-<!-- ════════════════════ ABOUT ════════════════════ -->
-<div id="pgAbout" class="pg">
+<!-- ABOUT -->
+<div id="pgAbout" class="spg">
   <div class="sec-wrap">
     <div class="about-grid">
       <div>
@@ -460,17 +311,17 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
         </div>
       </div>
       <div class="feat-grid">
-        <div class="feat"><h4>24/7</h4><p>Round-the-clock service & security</p></div>
+        <div class="feat"><h4>24/7</h4><p>Round-the-clock service &amp; security</p></div>
         <div class="feat"><h4>AC</h4><p>Air-conditioned, furnished rooms</p></div>
         <div class="feat"><h4>WiFi</h4><p>High-speed internet connectivity</p></div>
-        <div class="feat"><h4>Safe</h4><p>Hygienic & secure environment</p></div>
+        <div class="feat"><h4>Safe</h4><p>Hygienic &amp; secure environment</p></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ════════════════════ GALLERY ════════════════════ -->
-<div id="pgGallery" class="pg">
+<!-- GALLERY -->
+<div id="pgGallery" class="spg">
   <div class="sec-wrap">
     <span class="sec-eyebrow">Our Spaces</span>
     <h2 class="sec-title">Gallery</h2>
@@ -490,14 +341,14 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
   </div>
 </div>
 
-<!-- ════════════════════ BOOK ROOM ════════════════════ -->
-<div id="pgBook" class="pg">
+<!-- BOOK ROOM -->
+<div id="pgBook" class="spg">
   <div class="sec-wrap">
     <span class="sec-eyebrow">Reservations</span>
     <h2 class="sec-title">Book a Room</h2>
     <div class="gold-hr"></div>
     <p style="color:var(--muted2);font-size:14px;font-family:Arial,sans-serif;max-width:480px">Fill in the form below and we will contact you with availability details.</p>
-    <div class="book-form-wrap">
+    <div class="book-wrap">
       <div class="brow">
         <div class="bfg"><label>Full Name *</label><input type="text" id="bName" placeholder="Your full name"></div>
         <div class="bfg"><label>Mobile Number *</label><input type="tel" id="bMob" placeholder="10-digit number" maxlength="10"></div>
@@ -508,21 +359,16 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
         <div class="bfg"><label>Check-out Date</label><input type="date" id="bCout"></div>
       </div>
       <div class="bfg"><label>Room Type</label>
-        <select id="bRoom">
-          <option value="">Select Room Type</option>
-          <option>Standard Room</option>
-          <option>Deluxe Room</option>
-          <option>Family Room</option>
-        </select>
+        <select id="bRoom"><option value="">Select Room Type</option><option>Standard Room</option><option>Deluxe Room</option><option>Family Room</option></select>
       </div>
       <button class="book-btn" id="bookBtn" onclick="submitBooking()">Submit Booking Request</button>
-      <div class="book-msg" id="bookMsg"></div>
+      <div class="msg" id="bookMsg"></div>
     </div>
   </div>
 </div>
 
-<!-- ════════════════════ CONTACT ════════════════════ -->
-<div id="pgContact" class="pg">
+<!-- CONTACT -->
+<div id="pgContact" class="spg">
   <div class="sec-wrap">
     <span class="sec-eyebrow">Get In Touch</span>
     <h2 class="sec-title">Contact Us</h2>
@@ -530,22 +376,10 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
     <div class="contact-grid">
       <div class="contact-block">
         <h3>JSR Residency</h3>
-        <div class="ci">
-          <div class="ci-icon">&#128100;</div>
-          <div><span class="ci-label">Manager</span><div class="ci-val">Vikas Singh</div></div>
-        </div>
-        <div class="ci">
-          <div class="ci-icon">&#128222;</div>
-          <div><span class="ci-label">Phone</span><div class="ci-val"><a href="tel:9999484810">9999484810</a></div></div>
-        </div>
-        <div class="ci">
-          <div class="ci-icon">&#128205;</div>
-          <div><span class="ci-label">Address</span><div class="ci-val">B-9/61-62, Sector 5, Rohini,<br>New Delhi &mdash; 110085<br>Near Rajiv Gandhi Cancer Hospital</div></div>
-        </div>
-        <div class="ci">
-          <div class="ci-icon">&#128336;</div>
-          <div><span class="ci-label">Reception Hours</span><div class="ci-val">Open 24 Hours, 7 Days a Week</div></div>
-        </div>
+        <div class="ci"><div class="ci-icon">&#128100;</div><div><span class="ci-label">Manager</span><div class="ci-val">Vikas Singh</div></div></div>
+        <div class="ci"><div class="ci-icon">&#128222;</div><div><span class="ci-label">Phone</span><div class="ci-val"><a href="tel:9999484810">9999484810</a></div></div></div>
+        <div class="ci"><div class="ci-icon">&#128205;</div><div><span class="ci-label">Address</span><div class="ci-val">B-9/61-62, Sector 5, Rohini,<br>New Delhi &mdash; 110085<br>Near Rajiv Gandhi Cancer Hospital</div></div></div>
+        <div class="ci"><div class="ci-icon">&#128336;</div><div><span class="ci-label">Reception Hours</span><div class="ci-val">Open 24 Hours, 7 Days a Week</div></div></div>
       </div>
       <div>
         <div class="map-block">
@@ -565,14 +399,14 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
   </div>
 </div>
 
-<!-- ════════════════════ FOOTER ════════════════════ -->
+<!-- FOOTER -->
 <div id="mainFoot">
   <span class="foot-logo">JSR Residency</span>
   <p>&copy; 2025 JSR Residency. All rights reserved. Rohini, New Delhi</p>
   <p><a href="tel:9999484810">&#128222; 9999484810</a></p>
 </div>
 
-<!-- ════════════════════ ADMIN LOGIN ════════════════════ -->
+<!-- ADMIN LOGIN -->
 <div id="pgAdmin">
   <div class="admin-card">
     <div class="admin-logo">
@@ -583,57 +417,46 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
     <div class="afg"><label>Admin ID</label><input type="text" id="aId" placeholder="Enter admin ID" autocomplete="off" onkeydown="if(event.key==='Enter')doLogin()"></div>
     <div class="afg"><label>Password</label><input type="password" id="aPwd" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()"></div>
     <button class="login-btn" id="loginBtn" onclick="doLogin()">Sign In</button>
-    <div class="login-err" id="loginErr"></div>
+    <div class="lerr" id="loginErr"></div>
     <p style="font-size:10px;color:var(--muted);text-align:center;margin-top:14px;font-family:Arial,sans-serif">Credentials verified via Google Sheet</p>
   </div>
 </div>
 
-<!-- ════════════════════ ADMIN DASHBOARD ════════════════════ -->
+<!-- ADMIN DASHBOARD -->
 <div id="pgDash">
   <div class="sidebar">
-    <div class="sb-brand">
-      <h3><span class="gdot"></span>JSR Residency</h3>
-      <span>Admin Dashboard</span>
-    </div>
+    <div class="sb-brand"><h3><span class="gdot"></span>JSR Residency</h3><span>Admin Dashboard</span></div>
     <div class="sb-nav">
-      <div class="sb-item on" onclick="showAPage('dash',this)"><span>&#9646;</span> Dashboard</div>
-      <div class="sb-item" onclick="showAPage('form',this)"><span>&#43;</span> New Guest Entry</div>
-      <div class="sb-item" onclick="showAPage('recs',this)"><span>&#9776;</span> All Records</div>
+      <div class="sb-item on" onclick="showAP('dash',this)"><span>&#9646;</span> Dashboard</div>
+      <div class="sb-item" onclick="showAP('form',this)"><span>&#43;</span> New Guest Entry</div>
+      <div class="sb-item" onclick="showAP('recs',this)"><span>&#9776;</span> All Records</div>
     </div>
-    <div class="sb-foot">
-      <button class="sb-logout" onclick="doLogout()">Sign Out</button>
-    </div>
+    <div class="sb-foot"><button class="sb-logout" onclick="doLogout()">Sign Out</button></div>
   </div>
   <div class="main-area">
-    <div class="a-topbar">
-      <h2 id="aPageTitle">Dashboard</h2>
-      <span class="meta" id="aMeta"></span>
-    </div>
+    <div class="a-topbar"><h2 id="aTitle">Dashboard</h2><span class="meta" id="aMeta"></span></div>
 
-    <!-- DASHBOARD PAGE -->
+    <!-- DASHBOARD -->
     <div class="a-page on" id="ap-dash">
       <div class="stats-row">
         <div class="stat"><div class="n" id="sTotal">0</div><div class="l">Total Guests</div></div>
         <div class="stat"><div class="n" id="sToday">0</div><div class="l">Today</div></div>
-        <div class="stat"><div class="n" id="sRooms">&#8212;</div><div class="l">Rooms Used</div></div>
+        <div class="stat"><div class="n" id="sRooms">-</div><div class="l">Rooms Used</div></div>
         <div class="stat"><div class="n" id="sMonth">0</div><div class="l">This Month</div></div>
       </div>
       <div class="tcard">
         <div class="tcard-head">Recent Entries</div>
-        <table class="dtable" style="table-layout:fixed;width:100%">
-          <thead><tr><th style="width:15%">Form No</th><th style="width:28%">Guest Name</th><th style="width:12%">Room</th><th style="width:26%">Check-in</th><th style="width:19%">Status</th></tr></thead>
-          <tbody id="dashTb"><tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">No entries yet</td></tr></tbody>
-        </table>
+        <table class="dtable"><thead><tr><th style="width:15%">Form No</th><th style="width:28%">Guest Name</th><th style="width:12%">Room</th><th style="width:27%">Check-in</th><th style="width:18%">Status</th></tr></thead>
+        <tbody id="dashTb"><tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">No entries yet</td></tr></tbody></table>
       </div>
     </div>
 
-    <!-- GUEST ENTRY FORM -->
+    <!-- GUEST FORM -->
     <div class="a-page" id="ap-form">
       <div class="succ-bar" id="succBar">
-        <span>&#10003; Guest saved &amp; sent to Google Sheet!</span>
+        <span>&#10003; Guest saved! Data sent to Google Sheet.</span>
         <button class="btn-viewpdf" onclick="buildPDF()">View &amp; Print PDF</button>
       </div>
-
       <div class="fsec">
         <div class="fsec-title">Registration Details</div>
         <div class="g2">
@@ -645,7 +468,6 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
           <div class="gfg"><label>Check-in Date &amp; Time *</label><input type="datetime-local" id="gCin"></div>
         </div>
       </div>
-
       <div class="fsec">
         <div class="fsec-title">Guest Information</div>
         <div class="g2">
@@ -653,9 +475,7 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
           <div class="gfg"><label>Father / Husband Name *</label><input id="gFather" placeholder="Father or husband name"></div>
         </div>
         <div class="g3">
-          <div class="gfg"><label>Gender *</label>
-            <select id="gGender"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select>
-          </div>
+          <div class="gfg"><label>Gender *</label><select id="gGender"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select></div>
           <div class="gfg"><label>Nationality</label><input id="gNat" value="Indian"></div>
           <div class="gfg"><label>Occupation</label><input id="gOcc" placeholder="e.g. Business"></div>
         </div>
@@ -664,10 +484,9 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
           <div class="gfg"><label>Email Address</label><input id="gEmail" type="email" placeholder="email@example.com"></div>
         </div>
       </div>
-
       <div class="fsec">
         <div class="fsec-title">Address Details</div>
-        <div class="gfg"><label>Address (House/Flat/Street) *</label><textarea id="gAddr" placeholder="House no, street, area, locality"></textarea></div>
+        <div class="gfg"><label>Address *</label><textarea id="gAddr" placeholder="House no, street, area, locality"></textarea></div>
         <div class="g3">
           <div class="gfg"><label>City *</label><input id="gCity" placeholder="City"></div>
           <div class="gfg"><label>State *</label><input id="gState" placeholder="State"></div>
@@ -675,25 +494,15 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
         </div>
         <div class="gfg"><label>Permanent Address (if different)</label><textarea id="gPerm" placeholder="Full permanent address"></textarea></div>
       </div>
-
       <div class="fsec">
         <div class="fsec-title">Travel &amp; Visit Details</div>
         <div class="g2">
           <div class="gfg"><label>Travel Details / Coming From</label><input id="gTravel" placeholder="e.g. Mumbai by Train"></div>
           <div class="gfg"><label>Purpose of Visit</label>
-            <select id="gPurpose">
-              <option value="">Select</option>
-              <option>Medical Treatment</option>
-              <option>Business</option>
-              <option>Tourism</option>
-              <option>Personal</option>
-              <option>Family Visit</option>
-              <option>Other</option>
-            </select>
+            <select id="gPurpose"><option value="">Select</option><option>Medical Treatment</option><option>Business</option><option>Tourism</option><option>Personal</option><option>Family Visit</option><option>Other</option></select>
           </div>
         </div>
       </div>
-
       <div class="fsec">
         <div class="fsec-title">Documents &amp; Live Photo</div>
         <div class="g2">
@@ -701,8 +510,7 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
             <label>Upload ID Proof</label>
             <label class="upload-lbl" for="gIdFile">
               <span class="u-ico">&#128196;</span>
-              <p>Click to upload ID Proof</p>
-              <small>Aadhaar / PAN / Passport &mdash; JPG, PNG</small>
+              <p>Click to upload ID Proof</p><small>Aadhaar / PAN / Passport</small>
               <input type="file" id="gIdFile" accept="image/*,.pdf" onchange="handleUp('gIdFile','idPrev','idName','id')">
             </label>
             <div class="uname" id="idName"></div>
@@ -712,8 +520,7 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
             <label>Upload Live Photo</label>
             <label class="upload-lbl" for="gPhFile">
               <span class="u-ico">&#128247;</span>
-              <p>Click to upload Guest Photo</p>
-              <small>JPG or PNG only</small>
+              <p>Click to upload Guest Photo</p><small>JPG or PNG only</small>
               <input type="file" id="gPhFile" accept="image/*" onchange="handleUp('gPhFile','phPrev','phName','ph')">
             </label>
             <div class="uname" id="phName"></div>
@@ -721,7 +528,6 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
           </div>
         </div>
       </div>
-
       <div class="form-btns">
         <button class="btn-clr" onclick="clearForm()">Clear Form</button>
         <button class="btn-save" id="saveBtn" onclick="saveGuest()">Save &amp; Generate PDF</button>
@@ -731,364 +537,301 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
     <!-- ALL RECORDS -->
     <div class="a-page" id="ap-recs">
       <div class="tcard">
-        <div class="tcard-head">
-          <span>All Guest Records</span>
-          <span id="recCount" style="font-size:11px;color:var(--muted);font-family:Arial,sans-serif"></span>
-        </div>
+        <div class="tcard-head"><span>All Guest Records</span><span id="recCount" style="font-size:11px;color:var(--muted);font-family:Arial,sans-serif"></span></div>
         <div style="overflow-x:auto">
-          <table class="dtable" style="min-width:600px">
+          <table class="dtable" style="table-layout:auto;min-width:600px">
             <thead><tr><th>Form No</th><th>Guest Name</th><th>Room</th><th>Check-in</th><th>Mobile</th><th>Purpose</th><th>PDF</th></tr></thead>
             <tbody id="recsTb"><tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">No records found</td></tr></tbody>
           </table>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- ════════════════════ PDF PAGE ════════════════════ -->
+<!-- PDF PAGE -->
 <div id="pgPDF">
   <div class="pdf-actions">
     <button class="btn-back" onclick="closePDF()">&#8592; Back</button>
     <button class="btn-print" onclick="window.print()">&#128438; Print / Save as PDF</button>
   </div>
-  <div class="pdf-outer">
-    <div class="pdf-doc" id="pdfDoc"></div>
-  </div>
+  <div class="pdf-outer"><div class="pdf-doc" id="pdfDoc"></div></div>
 </div>
 
-<!-- ════════════════════ JAVASCRIPT ════════════════════ -->
 <script>
-var SCRIPT = 'https://script.google.com/macros/s/AKfycbxPkRYdz0a_afcTvPBNetGZpSGvZycFYywrLY1qt26Y6gtq8oGG3rI0-vCGy6hPLKW3Xw/exec';
+var SCRIPT = 'https://script.google.com/macros/s/AKfycbyWQ_bi0--pxspWKK76lNCRC6AiZW9ON8uBPqYRojDmVBpJ66ekZ4E6lfyKuJ9x30QO/exec';
 var guests = [];
-try { guests = JSON.parse(localStorage.getItem('jsr_v3') || '[]'); } catch(e) { guests = []; }
-var curGuest = null;
-var idB64 = '', phB64 = '';
+try { guests = JSON.parse(localStorage.getItem('jsr_v3') || '[]'); } catch(e) {}
+var curGuest = null, idB64 = '', phB64 = '';
 
-/* ─ Helpers ─ */
-function gv(id) { var e = document.getElementById(id); return e ? e.value.trim() : ''; }
-function pad(n) { return n < 10 ? '0' + n : '' + n; }
-function save() { try { localStorage.setItem('jsr_v3', JSON.stringify(guests)); } catch(e){} }
-function el(id) { return document.getElementById(id); }
+function E(id){ return document.getElementById(id); }
+function gv(id){ var e=E(id); return e ? e.value.trim() : ''; }
+function pad(n){ return n<10?'0'+n:''+n; }
+function saveLocal(){ try{ localStorage.setItem('jsr_v3',JSON.stringify(guests)); }catch(e){} }
 
-/* ─ Navigation ─ */
-var PAGES = ['home','about','gallery','book','contact','admin','dash'];
-function go(p) {
-  // hide all
-  el('pgHome').style.display = 'none';
-  el('pgHome').classList.remove('on');
-  ['pgAbout','pgGallery','pgBook','pgContact'].forEach(function(id){
-    var e = el(id); if(e){ e.style.display='none'; e.classList.remove('on'); }
-  });
-  el('pgAdmin').style.display = 'none';
-  el('pgAdmin').classList.remove('on');
-  el('pgDash').style.display = 'none';
-  el('pgDash').classList.remove('on');
-  el('pgPDF').style.display = 'none';
-  el('pgPDF').classList.remove('on');
-  el('mainFoot').style.display = 'none';
-
-  // show target
-  if(p === 'home') {
-    el('pgHome').style.display = 'flex';
-    el('pgHome').classList.add('on');
-    el('mainFoot').style.display = 'flex';
-  } else if(p === 'about') {
-    el('pgAbout').style.display = 'block';
-    el('pgAbout').classList.add('on');
-    el('mainFoot').style.display = 'flex';
-  } else if(p === 'gallery') {
-    el('pgGallery').style.display = 'block';
-    el('pgGallery').classList.add('on');
-    el('mainFoot').style.display = 'flex';
-  } else if(p === 'book') {
-    el('pgBook').style.display = 'block';
-    el('pgBook').classList.add('on');
-    el('mainFoot').style.display = 'flex';
-  } else if(p === 'contact') {
-    el('pgContact').style.display = 'block';
-    el('pgContact').classList.add('on');
-    el('mainFoot').style.display = 'flex';
-  } else if(p === 'admin') {
-    el('pgAdmin').style.display = 'flex';
-    el('pgAdmin').classList.add('on');
-  } else if(p === 'dash') {
-    el('pgDash').style.display = 'flex';
-    el('pgDash').classList.add('on');
-  }
-
-  // update nav active
-  document.querySelectorAll('.nav-links a').forEach(function(a){
-    a.classList.toggle('act', a.getAttribute('data-p') === p);
-  });
-  el('navLinks').classList.remove('open');
-  window.scrollTo(0,0);
-}
-
-function toggleNav() { el('navLinks').classList.toggle('open'); }
-
-/* ─ Booking Form ─ */
-function submitBooking() {
-  var name=gv('bName'), mob=gv('bMob'), addr=gv('bAddr');
-  var msg=el('bookMsg'), btn=el('bookBtn');
-  msg.style.display='none'; msg.className='book-msg';
-  if(!name||!mob||!addr){ msg.textContent='Please fill all required fields.'; msg.className='book-msg err'; return; }
-  if(!/^\d{10}$/.test(mob)){ msg.textContent='Enter valid 10-digit mobile number.'; msg.className='book-msg err'; return; }
-  btn.disabled=true; btn.innerHTML='<span class="spin"></span>Submitting...';
-  var fd=new FormData();
-  fd.append('action','bookRoom');
-  fd.append('Name',name); fd.append('Mobile',mob); fd.append('Address',addr);
-  fd.append('CheckIn',gv('bCin')); fd.append('CheckOut',gv('bCout')); fd.append('RoomType',gv('bRoom'));
-  fd.append('Timestamp',new Date().toLocaleString('en-IN'));
-  fetch(SCRIPT,{method:'POST',body:fd}).catch(function(){});
-  setTimeout(function(){
-    msg.textContent = '✓ Booking request received! We will contact you at '+mob+' shortly.';
-    msg.className='book-msg ok';
-    btn.disabled=false; btn.textContent='Submit Booking Request';
-    el('bName').value=''; el('bMob').value=''; el('bAddr').value='';
-  }, 1000);
-}
-
-/* ─ Admin Login ─ */
-function doLogin() {
+/* ── LOGIN: tries JSONP first, then fetch fallback ── */
+function doLogin(){
   var id=gv('aId'), pwd=gv('aPwd');
-  var errEl=el('loginErr'), btn=el('loginBtn');
+  var errEl=E('loginErr'), btn=E('loginBtn');
   if(!id||!pwd){ errEl.textContent='Please enter both ID and password.'; errEl.style.display='block'; return; }
   errEl.style.display='none';
   btn.disabled=true; btn.innerHTML='<span class="spin"></span>Verifying...';
-  fetch(SCRIPT+'?action=login&id='+encodeURIComponent(id)+'&pwd='+encodeURIComponent(pwd))
+
+  function onFail(msg){
+    errEl.textContent = msg;
+    errEl.style.display='block';
+    btn.disabled=false; btn.textContent='Sign In';
+  }
+
+  function onSuccess(){
+    btn.disabled=false; btn.textContent='Sign In';
+    loginOK(id);
+  }
+
+  /* Method 1: JSONP (works from local file) */
+  var cbName = 'jsrCB_'+Date.now();
+  var done = false;
+
+  var timer = setTimeout(function(){
+    if(done) return; done=true;
+    delete window[cbName];
+    var s=E('_jsonp'); if(s) s.remove();
+    /* Method 2: fetch fallback */
+    tryFetch(id, pwd, onSuccess, onFail);
+  }, 7000);
+
+  window[cbName] = function(data){
+    if(done) return; done=true;
+    clearTimeout(timer);
+    delete window[cbName];
+    var s=E('_jsonp'); if(s) s.remove();
+    console.log('Login response:', data);
+    if(data && data.ok===true){ onSuccess(); }
+    else { onFail('Invalid ID or password. Please check your Admins sheet.'); }
+  };
+
+  var url = SCRIPT+'?action=login&id='+encodeURIComponent(id)+'&pwd='+encodeURIComponent(pwd)+'&callback='+cbName;
+  var s=document.createElement('script');
+  s.id='_jsonp'; s.src=url;
+  s.onerror=function(){
+    if(done) return; done=true;
+    clearTimeout(timer);
+    delete window[cbName]; s.remove();
+    tryFetch(id, pwd, onSuccess, onFail);
+  };
+  document.head.appendChild(s);
+}
+
+function tryFetch(id, pwd, onSuccess, onFail){
+  var url = SCRIPT+'?action=login&id='+encodeURIComponent(id)+'&pwd='+encodeURIComponent(pwd);
+  fetch(url)
     .then(function(r){ return r.json(); })
-    .then(function(d){
-      if(d.ok || d.success || d.status==='ok') {
-        loginOK(id);
-      } else {
-        errEl.textContent='Invalid credentials. Please try again.';
-        errEl.style.display='block';
-      }
-      btn.disabled=false; btn.textContent='Sign In';
+    .then(function(data){
+      console.log('Fetch response:', data);
+      if(data && data.ok===true){ onSuccess(); }
+      else { onFail('Invalid ID or password. Please check your Admins sheet.'); }
     })
-    .catch(function(){
-      errEl.textContent='Connection error. Check Google Script settings.';
-      errEl.style.display='block';
-      btn.disabled=false; btn.textContent='Sign In';
+    .catch(function(err){
+      console.log('Fetch error:', err);
+      onFail('Could not connect. Check: 1) Script deployed as Anyone 2) Sheet ID correct 3) Admins tab exists.');
     });
 }
 
-function loginOK(id) {
+function loginOK(id){
   go('dash');
-  el('aMeta').textContent = 'Logged in: '+id+' | '+new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+  E('aMeta').textContent='Logged in: '+id+' | '+new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
   var today=new Date().toISOString().split('T')[0];
-  el('gDate').value=today;
+  E('gDate').value=today;
   var now=new Date();
-  el('gCin').value=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes());
-  el('gFNo').value='JSR-'+String(guests.length+1).padStart(3,'0');
+  E('gCin').value=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes());
+  E('gFNo').value='JSR-'+String(guests.length+1).padStart(3,'0');
   updateDash();
 }
 
-function doLogout() {
-  go('home');
-  el('aId').value=''; el('aPwd').value='';
-  el('loginErr').style.display='none';
+function doLogout(){ go('home'); E('aId').value=''; E('aPwd').value=''; E('loginErr').style.display='none'; }
+
+/* ── NAVIGATION ── */
+function go(p){
+  /* hide all */
+  E('pgHome').style.display='none';
+  ['pgAbout','pgGallery','pgBook','pgContact'].forEach(function(id){ var e=E(id); if(e){e.style.display='none';e.classList.remove('show');} });
+  E('pgAdmin').style.display='none'; E('pgAdmin').classList.remove('show');
+  E('pgDash').style.display='none'; E('pgDash').classList.remove('show');
+  E('pgPDF').style.display='none'; E('pgPDF').classList.remove('show');
+  E('mainFoot').style.display='none';
+
+  if(p==='home'){
+    E('pgHome').style.display='flex';
+  } else if(p==='about'){
+    E('pgAbout').style.display='block'; E('pgAbout').classList.add('show'); E('mainFoot').style.display='flex';
+  } else if(p==='gallery'){
+    E('pgGallery').style.display='block'; E('pgGallery').classList.add('show'); E('mainFoot').style.display='flex';
+  } else if(p==='book'){
+    E('pgBook').style.display='block'; E('pgBook').classList.add('show'); E('mainFoot').style.display='flex';
+  } else if(p==='contact'){
+    E('pgContact').style.display='block'; E('pgContact').classList.add('show'); E('mainFoot').style.display='flex';
+  } else if(p==='admin'){
+    E('pgAdmin').style.display='flex'; E('pgAdmin').classList.add('show');
+  } else if(p==='dash'){
+    E('pgDash').style.display='flex'; E('pgDash').classList.add('show');
+  }
+
+  document.querySelectorAll('.nav-links a').forEach(function(a){ a.classList.toggle('act', a.getAttribute('data-p')===p); });
+  E('navLinks').classList.remove('open');
+  window.scrollTo(0,0);
 }
 
-/* ─ Admin Page Navigation ─ */
-function showAPage(pid, btn) {
+/* ── BOOKING FORM ── */
+function submitBooking(){
+  var name=gv('bName'),mob=gv('bMob'),addr=gv('bAddr');
+  var msg=E('bookMsg'),btn=E('bookBtn');
+  msg.style.display='none'; msg.className='msg';
+  if(!name||!mob||!addr){ msg.textContent='Please fill all required fields.'; msg.className='msg err'; return; }
+  if(!/^\d{10}$/.test(mob)){ msg.textContent='Enter valid 10-digit mobile number.'; msg.className='msg err'; return; }
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span>Submitting...';
+  var fd=new FormData();
+  fd.append('action','bookRoom'); fd.append('Name',name); fd.append('Mobile',mob);
+  fd.append('Address',addr); fd.append('CheckIn',gv('bCin')); fd.append('CheckOut',gv('bCout'));
+  fd.append('RoomType',gv('bRoom')); fd.append('Timestamp',new Date().toLocaleString('en-IN'));
+  fetch(SCRIPT,{method:'POST',body:fd}).catch(function(){});
+  setTimeout(function(){
+    msg.textContent='✓ Booking request received! We will contact you at '+mob+' shortly.';
+    msg.className='msg ok'; btn.disabled=false; btn.textContent='Submit Booking Request';
+    E('bName').value=''; E('bMob').value=''; E('bAddr').value='';
+  },1000);
+}
+
+/* ── ADMIN PAGES ── */
+function showAP(pid,btn){
   document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.remove('on'); });
   btn.classList.add('on');
   document.querySelectorAll('.a-page').forEach(function(p){ p.classList.remove('on'); p.style.display='none'; });
-  var pg = el('ap-'+pid);
-  pg.classList.add('on'); pg.style.display='block';
-  var titles={dash:'Dashboard',form:'New Guest Entry',recs:'All Records'};
-  el('aPageTitle').textContent = titles[pid]||pid;
+  var pg=E('ap-'+pid); pg.classList.add('on'); pg.style.display='block';
+  var t={dash:'Dashboard',form:'New Guest Entry',recs:'All Records'};
+  E('aTitle').textContent=t[pid]||pid;
   if(pid==='recs') renderRecs();
 }
 
-/* ─ File Upload ─ */
-function handleUp(inputId, prevId, nameId, type) {
-  var file=el(inputId).files[0];
-  if(!file) return;
-  el(nameId).textContent='✓ '+file.name;
+/* ── FILE UPLOAD ── */
+function handleUp(inputId,prevId,nameId,type){
+  var file=E(inputId).files[0]; if(!file) return;
+  E(nameId).textContent='✓ '+file.name;
   var reader=new FileReader();
   reader.onload=function(e){
     var b64=e.target.result;
     if(type==='id') idB64=b64;
     if(type==='ph') phB64=b64;
-    if(file.type.startsWith('image/')){
-      var img=el(prevId);
-      img.src=b64; img.style.display='block';
-    }
+    if(file.type.startsWith('image/')){ var img=E(prevId); img.src=b64; img.style.display='block'; }
   };
   reader.readAsDataURL(file);
 }
 
-/* ─ Save Guest ─ */
-var REQ = ['gFNo','gDate','gRoom','gCin','gName','gFather','gGender','gMob','gAddr','gCity','gState','gPin'];
-
-function saveGuest() {
-  for(var i=0;i<REQ.length;i++){
-    if(!gv(REQ[i])){
-      alert('Please fill all required (*) fields.');
-      el(REQ[i]).focus(); return;
-    }
-  }
+/* ── SAVE GUEST ── */
+var REQ=['gFNo','gDate','gRoom','gCin','gName','gFather','gGender','gMob','gAddr','gCity','gState','gPin'];
+function saveGuest(){
+  for(var i=0;i<REQ.length;i++){ if(!gv(REQ[i])){ alert('Please fill all required (*) fields.'); E(REQ[i]).focus(); return; } }
   if(!/^\d{10}$/.test(gv('gMob'))){ alert('Enter valid 10-digit mobile number.'); return; }
-
-  var g = {
-    formNo:gv('gFNo'), date:gv('gDate'), roomNo:gv('gRoom'), checkin:gv('gCin'),
-    name:gv('gName'), father:gv('gFather'), gender:gv('gGender'),
-    nationality:gv('gNat'), occupation:gv('gOcc'), mobile:gv('gMob'), email:gv('gEmail'),
-    address:gv('gAddr'), city:gv('gCity'), state:gv('gState'), pin:gv('gPin'),
-    permAddr:gv('gPerm'), travel:gv('gTravel'), purpose:gv('gPurpose'),
-    idPhoto:idB64, livePhoto:phB64,
-    savedAt:new Date().toLocaleString('en-IN')
+  var g={
+    formNo:gv('gFNo'),date:gv('gDate'),roomNo:gv('gRoom'),checkin:gv('gCin'),
+    name:gv('gName'),father:gv('gFather'),gender:gv('gGender'),nationality:gv('gNat'),
+    occupation:gv('gOcc'),mobile:gv('gMob'),email:gv('gEmail'),
+    address:gv('gAddr'),city:gv('gCity'),state:gv('gState'),pin:gv('gPin'),
+    permAddr:gv('gPerm'),travel:gv('gTravel'),purpose:gv('gPurpose'),
+    idPhoto:idB64,livePhoto:phB64,savedAt:new Date().toLocaleString('en-IN')
   };
-
-  var btn=el('saveBtn');
+  var btn=E('saveBtn');
   btn.disabled=true; btn.innerHTML='<span class="spin"></span>Saving...';
-
   var fd=new FormData();
   fd.append('action','addGuest');
   Object.keys(g).forEach(function(k){ if(k!=='idPhoto'&&k!=='livePhoto') fd.append(k,g[k]); });
   fetch(SCRIPT,{method:'POST',body:fd}).catch(function(){});
-
-  guests.push(g); save(); curGuest=g; updateDash();
-  el('succBar').classList.add('on');
+  guests.push(g); saveLocal(); curGuest=g; updateDash();
+  E('succBar').classList.add('on');
   btn.disabled=false; btn.innerHTML='Save &amp; Generate PDF';
   window.scrollTo(0,0);
 }
 
-function clearForm() {
-  REQ.concat(['gNat','gOcc','gEmail','gPerm','gTravel','gPurpose']).forEach(function(id){
-    var e=el(id); if(e) e.value='';
-  });
-  el('gNat').value='Indian';
-  el('idName').textContent=''; el('phName').textContent='';
-  el('idPrev').style.display='none'; el('phPrev').style.display='none';
-  idB64=''; phB64='';
-  el('succBar').classList.remove('on');
-  el('gFNo').value='JSR-'+String(guests.length+1).padStart(3,'0');
+function clearForm(){
+  REQ.concat(['gNat','gOcc','gEmail','gPerm','gTravel','gPurpose']).forEach(function(id){ var e=E(id); if(e) e.value=''; });
+  E('gNat').value='Indian';
+  E('idName').textContent=''; E('phName').textContent='';
+  E('idPrev').style.display='none'; E('phPrev').style.display='none';
+  idB64=''; phB64=''; E('succBar').classList.remove('on');
+  E('gFNo').value='JSR-'+String(guests.length+1).padStart(3,'0');
 }
 
-/* ─ Dashboard ─ */
-function updateDash() {
-  el('sTotal').textContent=guests.length;
+/* ── DASHBOARD ── */
+function updateDash(){
+  E('sTotal').textContent=guests.length;
   var today=new Date().toISOString().split('T')[0];
-  el('sToday').textContent=guests.filter(function(g){ return g.date===today; }).length;
+  E('sToday').textContent=guests.filter(function(g){ return g.date===today; }).length;
   var rooms=[...new Set(guests.map(function(g){ return g.roomNo; }))];
-  el('sRooms').textContent=rooms.length||'—';
-  var mo=new Date().getMonth(), yr=new Date().getFullYear();
-  el('sMonth').textContent=guests.filter(function(g){ var d=new Date(g.date); return d.getMonth()===mo&&d.getFullYear()===yr; }).length;
-  var tb=el('dashTb');
-  var recent=guests.slice(-6).reverse();
+  E('sRooms').textContent=rooms.length||'0';
+  var mo=new Date().getMonth(),yr=new Date().getFullYear();
+  E('sMonth').textContent=guests.filter(function(g){ var d=new Date(g.date); return d.getMonth()===mo&&d.getFullYear()===yr; }).length;
+  var tb=E('dashTb'), recent=guests.slice(-6).reverse();
   if(!recent.length){ tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">No entries yet</td></tr>'; return; }
-  tb.innerHTML=recent.map(function(g){
-    return '<tr><td>'+g.formNo+'</td><td>'+g.name+'</td><td>'+g.roomNo+'</td><td style="font-size:11px">'+g.checkin+'</td><td><span class="badge badge-in">Checked In</span></td></tr>';
-  }).join('');
+  tb.innerHTML=recent.map(function(g){ return '<tr><td>'+g.formNo+'</td><td>'+g.name+'</td><td>'+g.roomNo+'</td><td style="font-size:11px">'+g.checkin+'</td><td><span class="badge-in">Checked In</span></td></tr>'; }).join('');
 }
 
-/* ─ All Records ─ */
-function renderRecs() {
-  var tb=el('recsTb');
-  el('recCount').textContent=guests.length+' record(s)';
+/* ── RECORDS ── */
+function renderRecs(){
+  var tb=E('recsTb');
+  E('recCount').textContent=guests.length+' record(s)';
   if(!guests.length){ tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">No records found</td></tr>'; return; }
   tb.innerHTML=guests.slice().reverse().map(function(g){
-    return '<tr><td>'+g.formNo+'</td><td>'+g.name+'</td><td>'+g.roomNo+'</td><td style="font-size:11px">'+g.checkin+'</td><td>'+g.mobile+'</td><td>'+(g.purpose||'—')+'</td>'
-    +'<td><button onclick="loadGuestPDF(\''+g.formNo+'\')" style="padding:5px 12px;background:var(--gold);color:#0a0907;border:none;cursor:pointer;font-size:10px;font-weight:700;font-family:Arial,sans-serif;letter-spacing:1px">PDF</button></td></tr>';
+    return '<tr><td>'+g.formNo+'</td><td>'+g.name+'</td><td>'+g.roomNo+'</td><td style="font-size:11px">'+g.checkin+'</td><td>'+g.mobile+'</td><td>'+(g.purpose||'-')+'</td>'
+    +'<td><button onclick="loadPDF(\''+g.formNo+'\')" style="padding:5px 12px;background:var(--gold);color:#0a0907;border:none;cursor:pointer;font-size:10px;font-weight:700;font-family:Arial,sans-serif">PDF</button></td></tr>';
   }).join('');
 }
+function loadPDF(fn){ curGuest=guests.find(function(g){ return g.formNo===fn; }); if(curGuest) buildPDF(); }
 
-function loadGuestPDF(fn) {
-  curGuest = guests.find(function(g){ return g.formNo===fn; });
-  if(curGuest) buildPDF();
-}
-
-/* ─ Build & Show PDF ─ */
-function buildPDF() {
+/* ── BUILD PDF ── */
+function buildPDF(){
   if(!curGuest) return;
-  var g=curGuest;
-  var h='';
-
-  h+='<div class="pdf-head">';
-  h+='<div class="pdf-hotel"><h1>JSR RESIDENCY</h1>';
-  h+='<p>B-9/61-62, Sector 5, Rohini, New Delhi &ndash; 110085<br>';
-  h+='Near Rajiv Gandhi Cancer Hospital | Ph: 9999484810<br>';
-  h+='Manager: Vikas Singh</p></div>';
-  h+='<div class="pdf-reg"><h2>Guest Register</h2>';
-  h+='<p>Form No: <strong>'+g.formNo+'</strong></p>';
-  h+='<p>Date: '+g.date+'</p></div></div>';
-
-  h+='<div class="pdf-body-row">';
-  h+='<div class="pdf-photos">';
+  var g=curGuest, h='';
+  h+='<div class="pdf-head"><div class="pdf-hotel"><h1>JSR RESIDENCY</h1><p>B-9/61-62, Sector 5, Rohini, New Delhi &ndash; 110085<br>Near Rajiv Gandhi Cancer Hospital &nbsp;|&nbsp; Ph: 9999484810<br>Manager: Vikas Singh</p></div>';
+  h+='<div class="pdf-reg"><h2>Guest Register</h2><p>Form No: <strong>'+g.formNo+'</strong></p><p>Date: '+g.date+'</p></div></div>';
+  h+='<div class="pdf-body-row"><div class="pdf-photos">';
   h+='<div class="pdf-pbox">'+(g.livePhoto&&g.livePhoto.startsWith('data:image')?'<img src="'+g.livePhoto+'" alt="Photo">':'<span>Live<br>Photo</span>')+'</div>';
   h+='<div class="pdf-pbox">'+(g.idPhoto&&g.idPhoto.startsWith('data:image')?'<img src="'+g.idPhoto+'" alt="ID">':'<span>ID<br>Proof</span>')+'</div>';
-  h+='</div>';
-
-  h+='<div class="pdf-cols">';
-
-  h+='<div class="pdf-s"><div class="pdf-s-title">Room &amp; Check-in Details</div><div class="pdf-g2">';
-  h+='<div class="pdf-f"><label>Room Number</label><p>'+g.roomNo+'</p></div>';
-  h+='<div class="pdf-f"><label>Check-in Date &amp; Time</label><p>'+g.checkin+'</p></div>';
-  h+='</div></div>';
-
+  h+='</div><div class="pdf-cols">';
+  h+='<div class="pdf-s"><div class="pdf-s-title">Room &amp; Check-in Details</div><div class="pdf-g2"><div class="pdf-f"><label>Room Number</label><p>'+g.roomNo+'</p></div><div class="pdf-f"><label>Check-in</label><p>'+g.checkin+'</p></div></div></div>';
   h+='<div class="pdf-s"><div class="pdf-s-title">Guest Information</div><div class="pdf-g2">';
   h+='<div class="pdf-f"><label>Guest Name</label><p>'+g.name+'</p></div>';
   h+='<div class="pdf-f"><label>Father / Husband Name</label><p>'+g.father+'</p></div>';
   h+='<div class="pdf-f"><label>Gender</label><p>'+g.gender+'</p></div>';
   h+='<div class="pdf-f"><label>Nationality</label><p>'+(g.nationality||'Indian')+'</p></div>';
-  h+='<div class="pdf-f"><label>Occupation</label><p>'+(g.occupation||'&mdash;')+'</p></div>';
-  h+='<div class="pdf-f"><label>Mobile Number</label><p>'+g.mobile+'</p></div>';
-  if(g.email) h+='<div class="pdf-f"><label>Email Address</label><p>'+g.email+'</p></div>';
+  h+='<div class="pdf-f"><label>Occupation</label><p>'+(g.occupation||'-')+'</p></div>';
+  h+='<div class="pdf-f"><label>Mobile</label><p>'+g.mobile+'</p></div>';
+  if(g.email) h+='<div class="pdf-f"><label>Email</label><p>'+g.email+'</p></div>';
   h+='</div></div>';
-
   h+='<div class="pdf-s"><div class="pdf-s-title">Address Details</div><div class="pdf-g2">';
   h+='<div class="pdf-f"><label>Current Address</label><p>'+g.address+'</p></div>';
   h+='<div class="pdf-f"><label>Permanent Address</label><p>'+(g.permAddr||g.address)+'</p></div>';
   h+='</div><div class="pdf-g3" style="margin-top:6px">';
   h+='<div class="pdf-f"><label>City</label><p>'+g.city+'</p></div>';
   h+='<div class="pdf-f"><label>State</label><p>'+g.state+'</p></div>';
-  h+='<div class="pdf-f"><label>Pin Code</label><p>'+g.pin+'</p></div>';
-  h+='</div></div>';
-
-  h+='<div class="pdf-s"><div class="pdf-s-title">Travel &amp; Visit Details</div><div class="pdf-g2">';
-  h+='<div class="pdf-f"><label>Travel Details / Coming From</label><p>'+(g.travel||'&mdash;')+'</p></div>';
-  h+='<div class="pdf-f"><label>Purpose of Visit</label><p>'+(g.purpose||'&mdash;')+'</p></div>';
-  h+='</div></div>';
-
-  h+='</div></div>'; // close pdf-cols & pdf-body-row
-
-  h+='<div class="pdf-signs">';
-  h+='<div class="pdf-sign-box"><div class="sl"></div><p>Guest Signature</p></div>';
-  h+='<div class="pdf-sign-box"><div class="sl"></div><p>Manager Signature</p></div>';
-  h+='<div class="pdf-sign-box"><div class="sl"></div><p>Verified By</p></div>';
-  h+='</div>';
-
+  h+='<div class="pdf-f"><label>Pin Code</label><p>'+g.pin+'</p></div></div></div>';
+  h+='<div class="pdf-s"><div class="pdf-s-title">Travel &amp; Visit</div><div class="pdf-g2">';
+  h+='<div class="pdf-f"><label>Coming From</label><p>'+(g.travel||'-')+'</p></div>';
+  h+='<div class="pdf-f"><label>Purpose of Visit</label><p>'+(g.purpose||'-')+'</p></div>';
+  h+='</div></div></div></div>';
+  h+='<div class="pdf-signs"><div class="pdf-sign-box"><div class="sl"></div><p>Guest Signature</p></div><div class="pdf-sign-box"><div class="sl"></div><p>Manager Signature</p></div><div class="pdf-sign-box"><div class="sl"></div><p>Verified By</p></div></div>';
   h+='<div class="pdf-foot-bar"><span>JSR RESIDENCY &mdash; Official Guest Register</span><span>Generated: '+new Date().toLocaleString('en-IN')+'</span></div>';
-
-  el('pdfDoc').innerHTML=h;
-
-  // hide everything, show PDF
-  el('pgHome').style.display='none';
-  el('pgAbout').style.display='none';
-  el('pgGallery').style.display='none';
-  el('pgBook').style.display='none';
-  el('pgContact').style.display='none';
-  el('pgAdmin').style.display='none';
-  el('pgDash').style.display='none';
-  el('mainFoot').style.display='none';
-  el('pgPDF').style.display='block';
-  el('pgPDF').classList.add('on');
+  E('pdfDoc').innerHTML=h;
+  /* hide everything show PDF */
+  ['pgHome','pgAbout','pgGallery','pgBook','pgContact','pgAdmin','pgDash','mainFoot'].forEach(function(id){ E(id).style.display='none'; });
+  E('pgPDF').style.display='block'; E('pgPDF').classList.add('show');
   window.scrollTo(0,0);
 }
 
-function closePDF() {
-  el('pgPDF').style.display='none';
-  el('pgPDF').classList.remove('on');
-  el('pgDash').style.display='flex';
-  el('pgDash').classList.add('on');
+function closePDF(){
+  E('pgPDF').style.display='none'; E('pgPDF').classList.remove('show');
+  E('pgDash').style.display='flex'; E('pgDash').classList.add('show');
 }
 
-// Init
+/* init */
 updateDash();
 </script>
 </body>
