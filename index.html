@@ -544,19 +544,29 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;min-height:100vh
       </div>
       <div class="fsec">
         <div class="fsec-title">Documents &amp; Live Photo</div>
-        <div class="g2">
+        <div class="g3">
           <div class="gfg">
-            <label>Upload ID Proof</label>
+            <label>ID Proof 1 (Front) *</label>
             <label class="upload-lbl" for="gIdFile">
               <span class="u-ico">&#128196;</span>
-              <p>Click to upload ID Proof</p><small>Aadhaar / PAN / Passport</small>
+              <p>Aadhaar / PAN / Passport</p><small>Front side — JPG, PNG</small>
               <input type="file" id="gIdFile" accept="image/*,.pdf" onchange="handleUp('gIdFile','idPrev','idName','id')">
             </label>
             <div class="uname" id="idName"></div>
             <img id="idPrev" class="uprev">
           </div>
           <div class="gfg">
-            <label>Upload Live Photo</label>
+            <label>ID Proof 2 (Back / 2nd ID)</label>
+            <label class="upload-lbl" for="gIdFile2">
+              <span class="u-ico">&#128196;</span>
+              <p>Back side / Second ID</p><small>Optional — JPG, PNG</small>
+              <input type="file" id="gIdFile2" accept="image/*,.pdf" onchange="handleUp('gIdFile2','idPrev2','idName2','id2')">
+            </label>
+            <div class="uname" id="idName2"></div>
+            <img id="idPrev2" class="uprev">
+          </div>
+          <div class="gfg">
+            <label>Live Photo *</label>
             <label class="upload-lbl" for="gPhFile">
               <span class="u-ico">&#128247;</span>
               <p>Click to upload Guest Photo</p><small>JPG or PNG only</small>
@@ -599,10 +609,9 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;min-height:100vh
 
 <script>
 var SCRIPT='https://script.google.com/macros/s/AKfycbyWQ_bi0--pxspWKK76lNCRC6AiZW9ON8uBPqYRojDmVBpJ66ekZ4E6lfyKuJ9x30QO/exec';
-
 var guests=[];
 try{guests=JSON.parse(localStorage.getItem('jsr_v4')||'[]');}catch(e){}
-var curGuest=null,idB64='',phB64='';
+var curGuest=null,idB64='',idB64_2='',phB64='';
 
 function E(id){return document.getElementById(id);}
 function gv(id){var e=E(id);return e?e.value.trim():'';}
@@ -692,7 +701,7 @@ function doLogin(){
   };
 
   var s=document.createElement('script');
-  s.src=SCRIPT+'?action=login&id='+encodeURIComponent(id)+'&pwd='+encodeURIComponent(pwd)+'&callback='+cbName;
+  s.src=SCRIPT+'?action=login&id='+encodeURIComponent(id)+'&pwd='+encodeURIComponent(pwd)+'&callback='+cbName+'&t='+Date.now();
   s.onerror=function(){
     if(done)return;done=true;
     clearTimeout(timer);cleanup(cbName);
@@ -708,7 +717,8 @@ function cleanup(cbName){
 }
 
 function tryFetch(id,pwd,btn,errEl){
-  fetch(SCRIPT+'?action=login&id='+encodeURIComponent(id)+'&pwd='+encodeURIComponent(pwd))
+  var url=SCRIPT+'?action=login&id='+encodeURIComponent(id)+'&pwd='+encodeURIComponent(pwd)+'&t='+Date.now();
+  fetch(url)
     .then(function(r){return r.json();})
     .then(function(d){
       btn.disabled=false;btn.textContent='Sign In';
@@ -717,7 +727,7 @@ function tryFetch(id,pwd,btn,errEl){
     })
     .catch(function(){
       btn.disabled=false;btn.textContent='Sign In';
-      errEl.textContent='Connection failed. Ensure script is deployed as "Anyone".';
+      errEl.textContent='Connection failed. Check internet & script deployment.';
       errEl.style.display='block';
     });
 }
@@ -742,6 +752,29 @@ function doLogout(){go('home');E('aId').value='';E('aPwd').value='';E('loginErr'
    SYNC FROM GOOGLE SHEET
 ════════════════════════════ */
 function syncSheet(cb){
+  // Try fetch first (works on mobile & desktop when online)
+  var url = SCRIPT + '?action=getGuests&t=' + Date.now();
+  fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(data && data.records && data.records.length > 0){
+        data.records.forEach(function(sg){
+          var local = guests.find(function(g){ return g.formNo === sg.formNo; });
+          if(local){ sg.idPhoto = local.idPhoto||''; sg.livePhoto = local.livePhoto||''; }
+          else{ sg.idPhoto=''; sg.livePhoto=''; }
+        });
+        guests = data.records;
+        saveLocal();
+      }
+      if(cb) cb();
+    })
+    .catch(function(){
+      // fetch failed, try JSONP fallback
+      syncSheetJSONP(cb);
+    });
+}
+
+function syncSheetJSONP(cb){
   var cbName='jsrS_'+Date.now();
   var timer=setTimeout(function(){
     cleanup(cbName);
@@ -751,7 +784,6 @@ function syncSheet(cb){
   window[cbName]=function(data){
     clearTimeout(timer);cleanup(cbName);
     if(data&&data.records&&data.records.length>0){
-      // merge: keep local photos, use sheet data
       data.records.forEach(function(sg){
         var local=guests.find(function(g){return g.formNo===sg.formNo;});
         if(local){sg.idPhoto=local.idPhoto||'';sg.livePhoto=local.livePhoto||'';}
@@ -764,7 +796,7 @@ function syncSheet(cb){
   };
 
   var s=document.createElement('script');
-  s.src=SCRIPT+'?action=getGuests&callback='+cbName;
+  s.src=SCRIPT+'?action=getGuests&callback='+cbName+'&t='+Date.now();
   s.onerror=function(){clearTimeout(timer);cleanup(cbName);if(cb)cb();};
   document.head.appendChild(s);
 }
@@ -797,6 +829,7 @@ function handleUp(inputId,prevId,nameId,type){
   reader.onload=function(e){
     var b64=e.target.result;
     if(type==='id')idB64=b64;
+    if(type==='id2')idB64_2=b64;
     if(type==='ph')phB64=b64;
     if(file.type.startsWith('image/')){var img=E(prevId);img.src=b64;img.style.display='block';}
   };
@@ -820,7 +853,7 @@ function saveGuest(){
     occupation:gv('gOcc'),mobile:gv('gMob'),email:gv('gEmail'),
     address:gv('gAddr'),city:gv('gCity'),state:gv('gState'),pin:gv('gPin'),
     permAddr:gv('gPerm'),travel:gv('gTravel'),purpose:gv('gPurpose'),
-    idPhoto:idB64,livePhoto:phB64,savedAt:new Date().toLocaleString('en-IN')
+    idPhoto:idB64,idPhoto2:idB64_2,livePhoto:phB64,savedAt:new Date().toLocaleString('en-IN')
   };
 
   var btn=E('saveBtn');
@@ -842,9 +875,9 @@ function saveGuest(){
 function clearForm(){
   REQ.concat(['gNat','gOcc','gEmail','gPerm','gTravel','gPurpose']).forEach(function(id){var e=E(id);if(e)e.value='';});
   E('gNat').value='Indian';
-  E('idName').textContent='';E('phName').textContent='';
-  E('idPrev').style.display='none';E('phPrev').style.display='none';
-  idB64='';phB64='';E('succBar').classList.remove('on');
+  E('idName').textContent='';E('idName2').textContent='';E('phName').textContent='';
+  E('idPrev').style.display='none';E('idPrev2').style.display='none';E('phPrev').style.display='none';
+  idB64='';idB64_2='';phB64='';E('succBar').classList.remove('on');
   setNextFormNo();
 }
 
@@ -906,8 +939,7 @@ function buildPDF(){
   h+='<div class="pdf-hotel"><h1>JSR RESIDENCY</h1><p>B-9/61-62, Sector 5, Rohini, New Delhi &ndash; 110085<br>Near Rajiv Gandhi Cancer Hospital &nbsp;|&nbsp; Ph: 9999484810<br>Manager: Vikas Singh</p></div>';
   h+='<div class="pdf-reg"><h2>Guest Register</h2><p>Form No: <strong>'+g.formNo+'</strong></p><p>Date: '+g.date+'</p></div></div>';
   h+='<div class="pdf-body-row"><div class="pdf-photos">';
-  h+='<div class="pdf-pbox">'+(g.livePhoto&&g.livePhoto.startsWith('data:image')?'<img src="'+g.livePhoto+'" alt="Photo">':'<span>Live<br>Photo</span>')+'</div>';
-  h+='<div class="pdf-pbox">'+(g.idPhoto&&g.idPhoto.startsWith('data:image')?'<img src="'+g.idPhoto+'" alt="ID">':'<span>ID<br>Proof</span>')+'</div>';
+  h+='<div class="pdf-pbox" style="width:100px;height:120px;">'+(g.livePhoto&&g.livePhoto.startsWith('data:image')?'<img src="'+g.livePhoto+'" alt="Photo" style="width:100%;height:100%;object-fit:cover;">':'<span style="font-size:10px;color:#bbb;text-align:center;padding:8px;">Live<br>Photo</span>')+'</div>';
   h+='</div><div class="pdf-cols">';
   h+='<div class="pdf-s"><div class="pdf-s-title">Room &amp; Check-in</div><div class="pdf-g2">';
   h+='<div class="pdf-f"><label>Room Number</label><p>'+g.roomNo+'</p></div>';
@@ -933,6 +965,29 @@ function buildPDF(){
   h+='<div class="pdf-f"><label>Purpose of Visit</label><p>'+(g.purpose||'-')+'</p></div>';
   h+='</div></div></div></div>';
   h+='<div class="pdf-signs"><div class="pdf-sign-box"><div class="sl"></div><p>Guest Signature</p></div><div class="pdf-sign-box"><div class="sl"></div><p>Manager Signature</p></div><div class="pdf-sign-box"><div class="sl"></div><p>Verified By</p></div></div>';
+  // ID Proofs section below signatures - large size
+  h+='<div style="margin-top:20px;border-top:1px solid #e5e5e5;padding-top:16px;">';
+  h+='<div style="font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#C9A84C;margin-bottom:12px;">ID Proof Documents</div>';
+  h+='<div style="display:flex;gap:16px;flex-wrap:wrap;">';
+  // ID Proof 1
+  h+='<div style="flex:1;min-width:200px;">';
+  h+='<div style="font-size:8px;color:#999;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">ID Proof 1 (Front)</div>';
+  if(g.idPhoto&&g.idPhoto.startsWith('data:image')){
+    h+='<img src="'+g.idPhoto+'" alt="ID Proof 1" style="width:100%;max-height:200px;object-fit:contain;border:1px solid #ddd;background:#f9f9f9;">';
+  } else {
+    h+='<div style="width:100%;height:160px;border:1px dashed #ddd;background:#f9f9f9;display:flex;align-items:center;justify-content:center;font-size:11px;color:#bbb;">No ID Proof Uploaded</div>';
+  }
+  h+='</div>';
+  // ID Proof 2
+  h+='<div style="flex:1;min-width:200px;">';
+  h+='<div style="font-size:8px;color:#999;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">ID Proof 2 (Back / Second ID)</div>';
+  if(g.idPhoto2&&g.idPhoto2.startsWith('data:image')){
+    h+='<img src="'+g.idPhoto2+'" alt="ID Proof 2" style="width:100%;max-height:200px;object-fit:contain;border:1px solid #ddd;background:#f9f9f9;">';
+  } else {
+    h+='<div style="width:100%;height:160px;border:1px dashed #ddd;background:#f9f9f9;display:flex;align-items:center;justify-content:center;font-size:11px;color:#bbb;">Not Uploaded</div>';
+  }
+  h+='</div>';
+  h+='</div></div>';
   h+='<div class="pdf-foot-bar"><span>JSR RESIDENCY &mdash; Official Guest Register</span><span>Generated: '+new Date().toLocaleString('en-IN')+'</span></div>';
   E('pdfDoc').innerHTML=h;
   // Hide all, show PDF
