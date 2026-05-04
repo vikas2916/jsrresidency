@@ -6,28 +6,56 @@
 <title>JSR Residency — Rohini, New Delhi</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidden;min-height:100vh}
+body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;min-height:100vh}
 :root{
   --gold:#C9A84C;--gold2:#E8C97A;
   --dark:#0a0907;--dark2:#100f0a;--card:#18160e;--mid:#221f14;--mid2:#2a261a;
   --cream:#f0e8d8;--cream2:#d8cdb8;--muted:#8a7e68;--muted2:#a89e88;
 }
-/* NAV */
-#mainNav{position:fixed;top:0;left:0;right:0;z-index:999;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(10,9,7,0.97);border-bottom:1px solid rgba(201,168,76,0.25)}
-.nav-logo{font-size:1.4rem;font-weight:700;color:var(--gold);letter-spacing:3px;cursor:pointer;text-transform:uppercase}
+
+/* ══ NAV ══ */
+#mainNav{
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  height:64px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;
+  background:rgba(10,9,7,0.98);
+  border-bottom:1px solid rgba(201,168,76,0.3);
+}
+.nav-logo{font-size:1.4rem;font-weight:700;color:var(--gold);letter-spacing:3px;cursor:pointer;text-transform:uppercase;user-select:none}
 .nav-logo span{color:var(--cream);font-weight:300}
 .nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{color:#ccc;text-decoration:none;font-size:11px;font-weight:400;letter-spacing:2.5px;text-transform:uppercase;font-family:Arial,sans-serif;cursor:pointer;transition:color 0.2s;padding-bottom:2px;border-bottom:1px solid transparent}
-.nav-links a:hover,.nav-links a.act{color:var(--gold);border-color:var(--gold)}
-.ham{display:none;flex-direction:column;gap:5px;cursor:pointer}
-.ham span{width:22px;height:1.5px;background:var(--cream);display:block}
+.nav-links li a{
+  color:#bbb;text-decoration:none;font-size:11px;font-weight:400;
+  letter-spacing:2px;text-transform:uppercase;font-family:Arial,sans-serif;
+  cursor:pointer;transition:color 0.2s;padding-bottom:3px;
+  border-bottom:1px solid transparent;display:block;
+}
+.nav-links li a:hover{color:var(--gold)}
+.nav-links li a.active{color:var(--gold);border-color:var(--gold)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.ham span{width:22px;height:2px;background:var(--cream);display:block;transition:0.3s}
 
-/* HOME */
-#pgHome{position:fixed;inset:64px 0 0 0;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(201,168,76,0.07) 0%,transparent 70%),linear-gradient(160deg,#0a0907 0%,#14110a 50%,#0a0907 100%);overflow:hidden}
-#pgHome.hide{display:none}
+/* ══ PAGE SYSTEM ══ */
+/* ALL pages hidden by default */
+.page{display:none;min-height:100vh;padding-top:64px}
+.page.active{display:block}
+/* Home special: flex centered */
+#pgHome{display:none;min-height:100vh;padding-top:64px}
+#pgHome.active{display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+/* Admin flex centered */
+#pgAdmin{display:none;min-height:100vh;padding-top:64px}
+#pgAdmin.active{display:flex;align-items:center;justify-content:center}
+/* Dash flex */
+#pgDash{display:none;min-height:100vh;padding-top:64px}
+#pgDash.active{display:flex}
+/* PDF */
+#pgPDF{display:none;min-height:100vh;padding-top:64px}
+#pgPDF.active{display:block}
+
+/* ══ HOME ══ */
+#pgHome{background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(201,168,76,0.07) 0%,transparent 70%),linear-gradient(160deg,#0a0907,#14110a,#0a0907)}
 .home-grid-bg{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);background-size:80px 80px}
-.home-content{position:relative;z-index:2;padding:0 20px}
+.home-content{position:relative;z-index:2;padding:20px}
 .home-eyebrow{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;font-family:Arial,sans-serif}
 .home-title{font-size:clamp(52px,12vw,110px);font-weight:300;line-height:0.95;color:var(--cream);margin-bottom:8px}
 .home-title em{font-style:italic;color:var(--gold)}
@@ -35,20 +63,18 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .home-sub{font-size:11px;letter-spacing:3px;color:var(--muted2);margin-bottom:40px;font-family:Arial,sans-serif}
 .btn-gold{display:inline-block;padding:14px 40px;background:var(--gold);color:#0a0907;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;font-family:Arial,sans-serif;border:none;cursor:pointer;transition:background 0.25s,transform 0.2s}
 .btn-gold:hover{background:var(--gold2);transform:translateY(-2px)}
-.btn-out{display:inline-block;padding:14px 40px;border:1px solid var(--gold);color:var(--gold);font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;font-family:Arial,sans-serif;cursor:pointer;background:none;margin-left:16px;transition:all 0.25s}
+.btn-out{display:inline-block;padding:14px 40px;border:1px solid var(--gold);color:var(--gold);font-size:10px;letter-spacing:3px;text-transform:uppercase;font-family:Arial,sans-serif;cursor:pointer;background:none;margin-left:16px;transition:all 0.25s}
 .btn-out:hover{background:var(--gold);color:#0a0907}
 
-/* SCROLLABLE PAGES */
-.spg{display:none;min-height:100vh;padding-top:64px}
-.spg.show{display:block}
-
-/* ABOUT */
-#pgAbout{background:var(--dark2)}
+/* ══ COMMON ══ */
 .sec-wrap{max-width:1060px;margin:0 auto;padding:80px 40px}
 .sec-eyebrow{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px;font-family:Arial,sans-serif}
 .sec-title{font-size:clamp(28px,5vw,52px);font-weight:300;color:var(--cream);line-height:1.15;margin-bottom:18px}
 .gold-hr{width:50px;height:1px;background:var(--gold);margin-bottom:32px}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}
+
+/* ══ ABOUT ══ */
+#pgAbout{background:var(--dark2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
 .about-text p{font-size:14px;line-height:2;color:var(--muted2);margin-bottom:16px;font-family:Arial,sans-serif;font-weight:300}
 .feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .feat{background:var(--mid);border:1px solid rgba(201,168,76,0.15);padding:24px 20px;position:relative}
@@ -56,7 +82,7 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .feat h4{font-size:28px;color:var(--gold);margin-bottom:6px;font-weight:300}
 .feat p{font-size:11px;color:var(--muted2);font-family:Arial,sans-serif}
 
-/* GALLERY */
+/* ══ GALLERY ══ */
 #pgGallery{background:var(--dark)}
 .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:32px}
 .g-box{background:var(--mid);border:1px solid rgba(201,168,76,0.1);aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;cursor:pointer;transition:border-color 0.3s}
@@ -65,7 +91,7 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .g-ico{font-size:28px;opacity:0.2}
 .g-txt{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);font-family:Arial,sans-serif}
 .g-over{position:absolute;inset:0;background:rgba(201,168,76,0.08);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s}
-.g-over span{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;font-family:Arial,sans-serif}
+.g-over span{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold);font-family:Arial,sans-serif}
 .g-box:hover .g-over{opacity:1}
 .rooms-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
 .room-card{background:var(--card);border:1px solid rgba(201,168,76,0.12);padding:28px 22px;text-align:center;transition:border-color 0.3s,transform 0.3s}
@@ -75,7 +101,7 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .room-card p{font-size:12px;color:var(--muted2);line-height:1.8;font-family:Arial,sans-serif}
 .room-price{margin-top:14px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:Arial,sans-serif}
 
-/* BOOK */
+/* ══ BOOK ══ */
 #pgBook{background:var(--dark2)}
 .book-wrap{max-width:640px;margin:32px auto 0;background:var(--mid);border:1px solid rgba(201,168,76,0.2);padding:40px;position:relative}
 .book-wrap::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--gold),rgba(201,168,76,0.2),transparent)}
@@ -87,14 +113,14 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .bfg select option{background:var(--mid);color:var(--cream)}
 .bfg select{-webkit-appearance:none;appearance:none;cursor:pointer}
 .brow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.book-btn{width:100%;padding:14px;background:var(--gold);color:#0a0907;border:none;cursor:pointer;font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-top:6px;transition:background 0.25s,transform 0.2s}
-.book-btn:hover{background:var(--gold2);transform:translateY(-2px)}
-.book-btn:disabled{opacity:0.55;cursor:not-allowed;transform:none}
-.msg{font-size:13px;padding:12px;margin-top:14px;text-align:center;display:none;font-family:Arial,sans-serif}
-.msg.ok{color:#7ecb8f;background:rgba(126,203,143,0.08);border:1px solid rgba(126,203,143,0.25);display:block}
-.msg.err{color:#e07474;background:rgba(224,116,116,0.08);border:1px solid rgba(224,116,116,0.25);display:block}
+.book-btn{width:100%;padding:14px;background:var(--gold);color:#0a0907;border:none;cursor:pointer;font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-top:6px;transition:background 0.25s}
+.book-btn:hover{background:var(--gold2)}
+.book-btn:disabled{opacity:0.55;cursor:not-allowed}
+.fmsg{font-size:13px;padding:12px;margin-top:14px;text-align:center;display:none;font-family:Arial,sans-serif}
+.fmsg.ok{color:#7ecb8f;background:rgba(126,203,143,0.08);border:1px solid rgba(126,203,143,0.25);display:block}
+.fmsg.err{color:#e07474;background:rgba(224,116,116,0.08);border:1px solid rgba(224,116,116,0.25);display:block}
 
-/* CONTACT */
+/* ══ CONTACT ══ */
 #pgContact{background:var(--dark)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:32px;align-items:start}
 .contact-block h3{font-size:28px;font-weight:300;color:var(--gold);margin-bottom:36px}
@@ -108,21 +134,20 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .map-inner{height:210px;background:var(--mid2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
 .map-inner .map-icon{font-size:36px;opacity:0.25}
 .map-inner p{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);font-family:Arial,sans-serif}
-.map-inner a{font-size:10px;color:var(--gold);text-decoration:none;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid var(--gold);padding-bottom:2px;font-family:Arial,sans-serif}
+.map-inner a{font-size:10px;color:var(--gold);text-decoration:none;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid var(--gold);font-family:Arial,sans-serif}
 .nearby{padding:18px 20px;border-top:1px solid rgba(201,168,76,0.1)}
 .nearby p{font-size:12px;color:var(--muted2);line-height:2.2;font-family:Arial,sans-serif}
 .nearby strong{color:var(--cream)}
 
-/* FOOTER */
-#mainFoot{background:#050403;border-top:1px solid rgba(201,168,76,0.15);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+/* ══ FOOTER ══ */
+#mainFoot{background:#050403;border-top:1px solid rgba(201,168,76,0.15);padding:20px 40px;display:none;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+#mainFoot.show{display:flex}
 .foot-logo{font-size:16px;font-weight:700;color:var(--gold);letter-spacing:3px;text-transform:uppercase}
 #mainFoot p{font-size:11px;color:var(--muted);font-family:Arial,sans-serif}
 #mainFoot a{color:var(--gold);text-decoration:none}
-.hide-foot{display:none!important}
 
-/* ADMIN LOGIN */
-#pgAdmin{display:none;min-height:100vh;padding-top:64px;background:var(--dark2);align-items:center;justify-content:center}
-#pgAdmin.show{display:flex}
+/* ══ ADMIN LOGIN ══ */
+#pgAdmin{background:var(--dark2)}
 .admin-card{background:var(--mid);border:1px solid rgba(201,168,76,0.22);padding:44px 40px;width:100%;max-width:400px;position:relative}
 .admin-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--gold),transparent)}
 .admin-logo{text-align:center;margin-bottom:32px}
@@ -137,9 +162,8 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .login-btn:disabled{opacity:0.6;cursor:not-allowed}
 .lerr{font-size:12px;color:#e07474;text-align:center;margin-top:12px;padding:10px;background:rgba(224,116,116,0.08);border:1px solid rgba(224,116,116,0.2);display:none;font-family:Arial,sans-serif}
 
-/* ADMIN PANEL */
-#pgDash{display:none;min-height:100vh;padding-top:64px}
-#pgDash.show{display:flex}
+/* ══ ADMIN DASH ══ */
+#pgDash{background:var(--dark2)}
 .sidebar{width:220px;background:var(--mid);border-right:1px solid rgba(201,168,76,0.15);display:flex;flex-direction:column;min-height:calc(100vh - 64px);flex-shrink:0}
 .sb-brand{padding:20px 18px 16px;border-bottom:1px solid rgba(201,168,76,0.12)}
 .sb-brand h3{font-size:16px;font-weight:500;color:var(--gold)}
@@ -158,18 +182,24 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .a-topbar .meta{font-size:11px;color:var(--muted2);font-family:Arial,sans-serif}
 .a-page{padding:22px;display:none}
 .a-page.on{display:block}
+
+/* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
 .stat{background:var(--mid);border:1px solid rgba(201,168,76,0.12);padding:20px;text-align:center}
 .stat .n{font-size:36px;color:var(--gold);font-weight:300}
 .stat .l{font-size:9px;color:var(--muted2);letter-spacing:2px;text-transform:uppercase;font-family:Arial,sans-serif;margin-top:4px}
+
+/* TABLE */
 .tcard{background:var(--mid);border:1px solid rgba(201,168,76,0.12);margin-bottom:20px}
 .tcard-head{padding:14px 18px;border-bottom:1px solid rgba(201,168,76,0.1);font-size:14px;font-weight:500;color:var(--cream2);display:flex;justify-content:space-between;align-items:center}
-.dtable{width:100%;border-collapse:collapse;font-size:12px;font-family:Arial,sans-serif;table-layout:fixed}
+.dtable{width:100%;border-collapse:collapse;font-size:12px;font-family:Arial,sans-serif}
 .dtable th{padding:10px 14px;text-align:left;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:2px;background:rgba(201,168,76,0.05);border-bottom:1px solid rgba(201,168,76,0.1);font-weight:500}
 .dtable td{padding:11px 14px;border-bottom:1px solid rgba(201,168,76,0.07);color:var(--cream2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dtable tr:last-child td{border-bottom:none}
 .dtable tr:hover td{background:rgba(201,168,76,0.03)}
-.badge-in{display:inline-block;padding:3px 10px;font-size:10px;font-family:Arial,sans-serif;background:rgba(126,203,143,0.1);color:#7ecb8f;border:1px solid rgba(126,203,143,0.2)}
+.badge-in{display:inline-block;padding:3px 10px;font-size:10px;background:rgba(126,203,143,0.1);color:#7ecb8f;border:1px solid rgba(126,203,143,0.2)}
+
+/* GUEST FORM */
 .fsec{background:var(--mid);border:1px solid rgba(201,168,76,0.12);padding:22px;margin-bottom:14px}
 .fsec-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid rgba(201,168,76,0.1);font-family:Arial,sans-serif;font-weight:600}
 .gfg{margin-bottom:14px}
@@ -197,15 +227,14 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .btn-save:disabled{opacity:0.6;cursor:not-allowed}
 .succ-bar{background:rgba(126,203,143,0.09);border:1px solid rgba(126,203,143,0.25);color:#7ecb8f;padding:13px 18px;margin-bottom:16px;font-size:13px;display:none;align-items:center;gap:14px;font-family:Arial,sans-serif}
 .succ-bar.on{display:flex}
-.btn-viewpdf{padding:6px 16px;background:#7ecb8f;color:#041208;border:none;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:1px;margin-left:auto;font-family:Arial,sans-serif}
+.btn-vpdf{padding:6px 16px;background:#7ecb8f;color:#041208;border:none;cursor:pointer;font-size:11px;font-weight:700;margin-left:auto;font-family:Arial,sans-serif}
 
 /* PDF */
-#pgPDF{display:none;min-height:100vh;padding-top:64px;background:var(--dark2)}
-#pgPDF.show{display:block}
-.pdf-actions{padding:16px 28px;display:flex;gap:12px;align-items:center}
-.btn-back{padding:9px 20px;background:transparent;border:1px solid rgba(201,168,76,0.22);color:var(--muted2);cursor:pointer;font-family:Arial,sans-serif;font-size:11px;letter-spacing:1px}
+#pgPDF{background:var(--dark2)}
+.pdf-actions{padding:16px 28px;display:flex;gap:12px}
+.btn-back{padding:9px 20px;background:transparent;border:1px solid rgba(201,168,76,0.22);color:var(--muted2);cursor:pointer;font-family:Arial,sans-serif;font-size:11px}
 .btn-back:hover{border-color:var(--gold);color:var(--cream)}
-.btn-print{padding:9px 24px;background:var(--gold);color:#0a0907;border:none;cursor:pointer;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.btn-print{padding:9px 24px;background:var(--gold);color:#0a0907;border:none;cursor:pointer;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:2px}
 .btn-print:hover{background:var(--gold2)}
 .pdf-outer{max-width:800px;margin:0 auto;padding:0 20px 40px}
 .pdf-doc{background:#fff;color:#111;font-family:Arial,sans-serif;font-size:12px;padding:38px 42px}
@@ -231,16 +260,24 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 .pdf-signs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;margin-top:24px;padding-top:18px;border-top:1px solid #e5e5e5}
 .pdf-sign-box .sl{height:40px;border-bottom:1px solid #888;margin-bottom:5px}
 .pdf-sign-box p{font-size:8.5px;color:#888;text-transform:uppercase;letter-spacing:1px;text-align:center}
-.pdf-foot-bar{background:#080808;color:#f0e8d8;padding:9px 18px;margin-top:20px;display:flex;justify-content:space-between;align-items:center}
+.pdf-foot-bar{background:#080808;color:#f0e8d8;padding:9px 18px;margin-top:20px;display:flex;justify-content:space-between}
 .pdf-foot-bar span{font-size:9px;letter-spacing:0.5px}
+
+/* SPINNER */
 .spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(10,9,7,0.25);border-top-color:#0a0907;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:5px}
 @keyframes spin{to{transform:rotate(360deg)}}
+.spin-gold{border-color:rgba(201,168,76,0.25);border-top-color:var(--gold)}
 
 /* RESPONSIVE */
 @media(max-width:900px){
   #mainNav{padding:0 20px}
   .ham{display:flex}
-  .nav-links{position:fixed;top:64px;left:0;right:0;background:var(--mid);flex-direction:column;align-items:center;padding:0;gap:0;max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s;border-top:1px solid rgba(201,168,76,0.15);z-index:998}
+  .nav-links{
+    position:fixed;top:64px;left:0;right:0;background:var(--mid);
+    flex-direction:column;align-items:center;padding:0;gap:0;
+    max-height:0;overflow:hidden;transition:max-height 0.4s,padding 0.3s;
+    border-top:1px solid rgba(201,168,76,0.15);z-index:9998;
+  }
   .nav-links.open{max-height:500px;padding:20px 0;gap:20px}
   .about-grid,.contact-grid,.brow,.g2,.g3{grid-template-columns:1fr}
   .gallery-grid{grid-template-columns:1fr 1fr}
@@ -250,7 +287,7 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
   .book-wrap{padding:24px 18px;margin:24px 16px 0}
   .btn-out{margin-left:0;margin-top:12px;display:block}
   #mainFoot{padding:16px 20px;flex-direction:column;text-align:center}
-  .sidebar{width:185px}
+  .sidebar{width:180px}
 }
 @media(max-width:580px){
   .rooms-row,.stats-row{grid-template-columns:1fr}
@@ -267,24 +304,24 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ════ NAV ════ -->
 <nav id="mainNav">
   <div class="nav-logo" onclick="go('home')">JSR <span>Residency</span></div>
   <ul class="nav-links" id="navLinks">
-    <li><a onclick="go('home')" class="act" data-p="home">Home</a></li>
+    <li><a onclick="go('home')" data-p="home" class="active">Home</a></li>
     <li><a onclick="go('about')" data-p="about">About Us</a></li>
     <li><a onclick="go('gallery')" data-p="gallery">Gallery</a></li>
     <li><a onclick="go('book')" data-p="book">Book Room</a></li>
     <li><a onclick="go('contact')" data-p="contact">Contact Us</a></li>
     <li><a onclick="go('admin')" data-p="admin" style="color:var(--gold)">&#128274; Admin</a></li>
   </ul>
-  <div class="ham" id="hamBtn" onclick="document.getElementById('navLinks').classList.toggle('open')">
+  <div class="ham" onclick="document.getElementById('navLinks').classList.toggle('open')">
     <span></span><span></span><span></span>
   </div>
 </nav>
 
-<!-- HOME -->
-<div id="pgHome">
+<!-- ════ HOME ════ -->
+<div id="pgHome" class="active">
   <div class="home-grid-bg"></div>
   <div class="home-content">
     <div class="home-eyebrow">Welcome to</div>
@@ -296,18 +333,18 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
   </div>
 </div>
 
-<!-- ABOUT -->
-<div id="pgAbout" class="spg">
+<!-- ════ ABOUT ════ -->
+<div id="pgAbout" class="page">
   <div class="sec-wrap">
     <div class="about-grid">
       <div>
         <span class="sec-eyebrow">About Us</span>
-        <h2 class="sec-title">JSR Residency<br>Rohini Delhi</h2>
+        <h2 class="sec-title">Your Home Away<br>From Home</h2>
         <div class="gold-hr"></div>
         <div class="about-text">
-          <p>Welcome to our hotel in Sector 5 Rohini Delhi, offering a perfect blend of comfort, cleanliness, and convenience for every guest. We are ideally located just 500 meters from Rajiv Gandhi Cancer Institute and Research Centre, making us one of the most preferred choices for those searching for a hotel near Rajiv Gandhi Cancer Hospital Rohini.</p>
-          <p>Our property is especially suitable for patients and families visiting the hospital, as well as travelers looking for a clean and affordable hotel in Sector 5 Rohini Delhi. We focus on providing a शांत, hygienic, and comfortable environment to ensure a stress-free stay.</p>
-          <p>If you are searching for a budget hotel in Rohini Delhi, rooms near Rajiv Gandhi Cancer Hospital, or a comfortable stay in Sector 5 Rohini, our hotel is the perfect choice. With easy accessibility, clean rooms, and quality amenities, we aim to deliver a reliable and pleasant stay every time.</p>
+          <p>JSR Residency is a premium guest house nestled in the heart of Rohini, New Delhi — offering a refined and peaceful stay experience for business travelers, families, and long-term guests.</p>
+          <p>Conveniently located near Rajiv Gandhi Cancer Hospital in Sector 5, Rohini, we provide clean, comfortable, and affordable accommodations with personalised service.</p>
+          <p>Whether you are here for a short visit or an extended stay, our dedicated team ensures every moment is comfortable and memorable.</p>
         </div>
       </div>
       <div class="feat-grid">
@@ -320,8 +357,8 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
   </div>
 </div>
 
-<!-- GALLERY -->
-<div id="pgGallery" class="spg">
+<!-- ════ GALLERY ════ -->
+<div id="pgGallery" class="page">
   <div class="sec-wrap">
     <span class="sec-eyebrow">Our Spaces</span>
     <h2 class="sec-title">Gallery</h2>
@@ -336,13 +373,13 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
     <div class="rooms-row">
       <div class="room-card"><span class="ri">&#128705;</span><h3>Standard Room</h3><p>Cozy AC room with essential amenities for a comfortable stay.</p><div class="room-price">Available on Request</div></div>
       <div class="room-card"><span class="ri">&#11088;</span><h3>Deluxe Room</h3><p>Spacious room with premium furnishings and attached bathroom.</p><div class="room-price">Available on Request</div></div>
-      <div class="room-card"><span class="ri">&#128106;</span><h3>Family Room</h3><p>Large room with multiple beds, ideal for families.</p><div class="room-price">Available on Request</div></div>
+      <div class="room-card"><span class="ri">&#128106;</span><h3>Family Room</h3><p>Large room ideal for families.</p><div class="room-price">Available on Request</div></div>
     </div>
   </div>
 </div>
 
-<!-- BOOK ROOM -->
-<div id="pgBook" class="spg">
+<!-- ════ BOOK ROOM ════ -->
+<div id="pgBook" class="page">
   <div class="sec-wrap">
     <span class="sec-eyebrow">Reservations</span>
     <h2 class="sec-title">Book a Room</h2>
@@ -362,13 +399,13 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
         <select id="bRoom"><option value="">Select Room Type</option><option>Standard Room</option><option>Deluxe Room</option><option>Family Room</option></select>
       </div>
       <button class="book-btn" id="bookBtn" onclick="submitBooking()">Submit Booking Request</button>
-      <div class="msg" id="bookMsg"></div>
+      <div class="fmsg" id="bookMsg"></div>
     </div>
   </div>
 </div>
 
-<!-- CONTACT -->
-<div id="pgContact" class="spg">
+<!-- ════ CONTACT ════ -->
+<div id="pgContact" class="page">
   <div class="sec-wrap">
     <span class="sec-eyebrow">Get In Touch</span>
     <h2 class="sec-title">Contact Us</h2>
@@ -379,7 +416,7 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
         <div class="ci"><div class="ci-icon">&#128100;</div><div><span class="ci-label">Manager</span><div class="ci-val">Vikas Singh</div></div></div>
         <div class="ci"><div class="ci-icon">&#128222;</div><div><span class="ci-label">Phone</span><div class="ci-val"><a href="tel:9999484810">9999484810</a></div></div></div>
         <div class="ci"><div class="ci-icon">&#128205;</div><div><span class="ci-label">Address</span><div class="ci-val">B-9/61-62, Sector 5, Rohini,<br>New Delhi &mdash; 110085<br>Near Rajiv Gandhi Cancer Hospital</div></div></div>
-        <div class="ci"><div class="ci-icon">&#128336;</div><div><span class="ci-label">Reception Hours</span><div class="ci-val">Open 24 Hours, 7 Days a Week</div></div></div>
+        <div class="ci"><div class="ci-icon">&#128336;</div><div><span class="ci-label">Reception</span><div class="ci-val">Open 24 Hours, 7 Days a Week</div></div></div>
       </div>
       <div>
         <div class="map-block">
@@ -399,14 +436,14 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ════ FOOTER ════ -->
 <div id="mainFoot">
   <span class="foot-logo">JSR Residency</span>
   <p>&copy; 2025 JSR Residency. All rights reserved. Rohini, New Delhi</p>
   <p><a href="tel:9999484810">&#128222; 9999484810</a></p>
 </div>
 
-<!-- ADMIN LOGIN -->
+<!-- ════ ADMIN LOGIN ════ -->
 <div id="pgAdmin">
   <div class="admin-card">
     <div class="admin-logo">
@@ -422,7 +459,7 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
   </div>
 </div>
 
-<!-- ADMIN DASHBOARD -->
+<!-- ════ ADMIN DASHBOARD ════ -->
 <div id="pgDash">
   <div class="sidebar">
     <div class="sb-brand"><h3><span class="gdot"></span>JSR Residency</h3><span>Admin Dashboard</span></div>
@@ -436,18 +473,20 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
   <div class="main-area">
     <div class="a-topbar"><h2 id="aTitle">Dashboard</h2><span class="meta" id="aMeta"></span></div>
 
-    <!-- DASHBOARD -->
+    <!-- DASHBOARD PAGE -->
     <div class="a-page on" id="ap-dash">
       <div class="stats-row">
         <div class="stat"><div class="n" id="sTotal">0</div><div class="l">Total Guests</div></div>
         <div class="stat"><div class="n" id="sToday">0</div><div class="l">Today</div></div>
-        <div class="stat"><div class="n" id="sRooms">-</div><div class="l">Rooms Used</div></div>
+        <div class="stat"><div class="n" id="sRooms">0</div><div class="l">Rooms Used</div></div>
         <div class="stat"><div class="n" id="sMonth">0</div><div class="l">This Month</div></div>
       </div>
       <div class="tcard">
         <div class="tcard-head">Recent Entries</div>
-        <table class="dtable"><thead><tr><th style="width:15%">Form No</th><th style="width:28%">Guest Name</th><th style="width:12%">Room</th><th style="width:27%">Check-in</th><th style="width:18%">Status</th></tr></thead>
-        <tbody id="dashTb"><tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">No entries yet</td></tr></tbody></table>
+        <table class="dtable" style="table-layout:fixed">
+          <thead><tr><th style="width:15%">Form No</th><th style="width:28%">Guest Name</th><th style="width:12%">Room</th><th style="width:27%">Check-in</th><th style="width:18%">Status</th></tr></thead>
+          <tbody id="dashTb"><tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">Loading...</td></tr></tbody>
+        </table>
       </div>
     </div>
 
@@ -455,7 +494,7 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
     <div class="a-page" id="ap-form">
       <div class="succ-bar" id="succBar">
         <span>&#10003; Guest saved! Data sent to Google Sheet.</span>
-        <button class="btn-viewpdf" onclick="buildPDF()">View &amp; Print PDF</button>
+        <button class="btn-vpdf" onclick="buildPDF()">View &amp; Print PDF</button>
       </div>
       <div class="fsec">
         <div class="fsec-title">Registration Details</div>
@@ -539,9 +578,9 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
       <div class="tcard">
         <div class="tcard-head"><span>All Guest Records</span><span id="recCount" style="font-size:11px;color:var(--muted);font-family:Arial,sans-serif"></span></div>
         <div style="overflow-x:auto">
-          <table class="dtable" style="table-layout:auto;min-width:600px">
+          <table class="dtable" style="min-width:620px">
             <thead><tr><th>Form No</th><th>Guest Name</th><th>Room</th><th>Check-in</th><th>Mobile</th><th>Purpose</th><th>PDF</th></tr></thead>
-            <tbody id="recsTb"><tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">No records found</td></tr></tbody>
+            <tbody id="recsTb"><tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">Click to load records</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -549,7 +588,7 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
   </div>
 </div>
 
-<!-- PDF PAGE -->
+<!-- ════ PDF PAGE ════ -->
 <div id="pgPDF">
   <div class="pdf-actions">
     <button class="btn-back" onclick="closePDF()">&#8592; Back</button>
@@ -559,81 +598,127 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;overflow-x:hidde
 </div>
 
 <script>
-var SCRIPT = 'https://script.google.com/macros/s/AKfycbyWQ_bi0--pxspWKK76lNCRC6AiZW9ON8uBPqYRojDmVBpJ66ekZ4E6lfyKuJ9x30QO/exec';
-var guests = [];
-try { guests = JSON.parse(localStorage.getItem('jsr_v3') || '[]'); } catch(e) {}
-var curGuest = null, idB64 = '', phB64 = '';
+var SCRIPT='https://script.google.com/macros/s/AKfycbyWQ_bi0--pxspWKK76lNCRC6AiZW9ON8uBPqYRojDmVBpJ66ekZ4E6lfyKuJ9x30QO/exec';
 
-function E(id){ return document.getElementById(id); }
-function gv(id){ var e=E(id); return e ? e.value.trim() : ''; }
-function pad(n){ return n<10?'0'+n:''+n; }
-function saveLocal(){ try{ localStorage.setItem('jsr_v3',JSON.stringify(guests)); }catch(e){} }
+var guests=[];
+try{guests=JSON.parse(localStorage.getItem('jsr_v4')||'[]');}catch(e){}
+var curGuest=null,idB64='',phB64='';
 
-/* ── LOGIN: tries JSONP first, then fetch fallback ── */
+function E(id){return document.getElementById(id);}
+function gv(id){var e=E(id);return e?e.value.trim():'';}
+function pad(n){return n<10?'0'+n:''+n;}
+function saveLocal(){try{localStorage.setItem('jsr_v4',JSON.stringify(guests));}catch(e){}}
+
+/* ════════════════════════════
+   NAVIGATION — clean & simple
+════════════════════════════ */
+var ALL_PAGES=['pgHome','pgAbout','pgGallery','pgBook','pgContact','pgAdmin','pgDash','pgPDF'];
+
+function go(p){
+  // Hide ALL pages
+  ALL_PAGES.forEach(function(id){
+    var el=E(id);
+    if(el) el.classList.remove('active');
+  });
+  // Hide footer
+  E('mainFoot').classList.remove('show');
+  // Close mobile nav
+  E('navLinks').classList.remove('open');
+
+  // Show target page
+  var target=E('pg'+p.charAt(0).toUpperCase()+p.slice(1));
+  if(target) target.classList.add('active');
+
+  // Show footer for public pages
+  if(['home','about','gallery','book','contact'].indexOf(p)>=0){
+    E('mainFoot').classList.add('show');
+  }
+
+  // Update nav active state
+  document.querySelectorAll('.nav-links li a').forEach(function(a){
+    a.classList.toggle('active', a.getAttribute('data-p')===p);
+  });
+
+  window.scrollTo(0,0);
+}
+
+/* ════════════════════════════
+   BOOKING FORM
+════════════════════════════ */
+function submitBooking(){
+  var name=gv('bName'),mob=gv('bMob'),addr=gv('bAddr');
+  var msg=E('bookMsg'),btn=E('bookBtn');
+  msg.className='fmsg';msg.style.display='none';
+  if(!name||!mob||!addr){msg.textContent='Please fill all required fields.';msg.className='fmsg err';return;}
+  if(!/^\d{10}$/.test(mob)){msg.textContent='Enter valid 10-digit mobile number.';msg.className='fmsg err';return;}
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span>Submitting...';
+  var fd=new FormData();
+  fd.append('action','bookRoom');fd.append('Name',name);fd.append('Mobile',mob);
+  fd.append('Address',addr);fd.append('CheckIn',gv('bCin'));fd.append('CheckOut',gv('bCout'));
+  fd.append('RoomType',gv('bRoom'));fd.append('Timestamp',new Date().toLocaleString('en-IN'));
+  fetch(SCRIPT,{method:'POST',body:fd}).catch(function(){});
+  setTimeout(function(){
+    msg.textContent='✓ Booking received! We will contact you at '+mob+' shortly.';
+    msg.className='fmsg ok';btn.disabled=false;btn.textContent='Submit Booking Request';
+    E('bName').value='';E('bMob').value='';E('bAddr').value='';
+  },1000);
+}
+
+/* ════════════════════════════
+   ADMIN LOGIN — JSONP
+════════════════════════════ */
 function doLogin(){
-  var id=gv('aId'), pwd=gv('aPwd');
-  var errEl=E('loginErr'), btn=E('loginBtn');
-  if(!id||!pwd){ errEl.textContent='Please enter both ID and password.'; errEl.style.display='block'; return; }
+  var id=gv('aId'),pwd=gv('aPwd');
+  var errEl=E('loginErr'),btn=E('loginBtn');
+  if(!id||!pwd){errEl.textContent='Please enter both ID and password.';errEl.style.display='block';return;}
   errEl.style.display='none';
-  btn.disabled=true; btn.innerHTML='<span class="spin"></span>Verifying...';
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span>Verifying...';
 
-  function onFail(msg){
-    errEl.textContent = msg;
-    errEl.style.display='block';
-    btn.disabled=false; btn.textContent='Sign In';
-  }
+  var cbName='jsrL_'+Date.now();
+  var done=false;
 
-  function onSuccess(){
-    btn.disabled=false; btn.textContent='Sign In';
-    loginOK(id);
-  }
+  var timer=setTimeout(function(){
+    if(done)return;done=true;
+    cleanup(cbName);
+    tryFetch(id,pwd,btn,errEl);
+  },6000);
 
-  /* Method 1: JSONP (works from local file) */
-  var cbName = 'jsrCB_'+Date.now();
-  var done = false;
-
-  var timer = setTimeout(function(){
-    if(done) return; done=true;
-    delete window[cbName];
-    var s=E('_jsonp'); if(s) s.remove();
-    /* Method 2: fetch fallback */
-    tryFetch(id, pwd, onSuccess, onFail);
-  }, 7000);
-
-  window[cbName] = function(data){
-    if(done) return; done=true;
-    clearTimeout(timer);
-    delete window[cbName];
-    var s=E('_jsonp'); if(s) s.remove();
-    console.log('Login response:', data);
-    if(data && data.ok===true){ onSuccess(); }
-    else { onFail('Invalid ID or password. Please check your Admins sheet.'); }
+  window[cbName]=function(data){
+    if(done)return;done=true;
+    clearTimeout(timer);cleanup(cbName);
+    btn.disabled=false;btn.textContent='Sign In';
+    if(data&&data.ok===true){loginOK(id);}
+    else{errEl.textContent='Invalid ID or password. Check your Admins sheet.';errEl.style.display='block';}
   };
 
-  var url = SCRIPT+'?action=login&id='+encodeURIComponent(id)+'&pwd='+encodeURIComponent(pwd)+'&callback='+cbName;
   var s=document.createElement('script');
-  s.id='_jsonp'; s.src=url;
+  s.src=SCRIPT+'?action=login&id='+encodeURIComponent(id)+'&pwd='+encodeURIComponent(pwd)+'&callback='+cbName;
   s.onerror=function(){
-    if(done) return; done=true;
-    clearTimeout(timer);
-    delete window[cbName]; s.remove();
-    tryFetch(id, pwd, onSuccess, onFail);
+    if(done)return;done=true;
+    clearTimeout(timer);cleanup(cbName);
+    tryFetch(id,pwd,btn,errEl);
   };
   document.head.appendChild(s);
 }
 
-function tryFetch(id, pwd, onSuccess, onFail){
-  var url = SCRIPT+'?action=login&id='+encodeURIComponent(id)+'&pwd='+encodeURIComponent(pwd);
-  fetch(url)
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      console.log('Fetch response:', data);
-      if(data && data.ok===true){ onSuccess(); }
-      else { onFail('Invalid ID or password. Please check your Admins sheet.'); }
+function cleanup(cbName){
+  delete window[cbName];
+  var old=document.querySelector('script[src*="'+cbName+'"]');
+  if(old)old.remove();
+}
+
+function tryFetch(id,pwd,btn,errEl){
+  fetch(SCRIPT+'?action=login&id='+encodeURIComponent(id)+'&pwd='+encodeURIComponent(pwd))
+    .then(function(r){return r.json();})
+    .then(function(d){
+      btn.disabled=false;btn.textContent='Sign In';
+      if(d&&d.ok===true){loginOK(id);}
+      else{errEl.textContent='Invalid ID or password. Check your Admins sheet.';errEl.style.display='block';}
     })
-    .catch(function(err){
-      console.log('Fetch error:', err);
-      onFail('Could not connect. Check: 1) Script deployed as Anyone 2) Sheet ID correct 3) Admins tab exists.');
+    .catch(function(){
+      btn.disabled=false;btn.textContent='Sign In';
+      errEl.textContent='Connection failed. Ensure script is deployed as "Anyone".';
+      errEl.style.display='block';
     });
 }
 
@@ -644,93 +729,91 @@ function loginOK(id){
   E('gDate').value=today;
   var now=new Date();
   E('gCin').value=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes());
+  // Sync from sheet to get real guest count
+  syncSheet(function(){
+    updateDash();
+    setNextFormNo();
+  });
+}
+
+function doLogout(){go('home');E('aId').value='';E('aPwd').value='';E('loginErr').style.display='none';}
+
+/* ════════════════════════════
+   SYNC FROM GOOGLE SHEET
+════════════════════════════ */
+function syncSheet(cb){
+  var cbName='jsrS_'+Date.now();
+  var timer=setTimeout(function(){
+    cleanup(cbName);
+    if(cb)cb();
+  },7000);
+
+  window[cbName]=function(data){
+    clearTimeout(timer);cleanup(cbName);
+    if(data&&data.records&&data.records.length>0){
+      // merge: keep local photos, use sheet data
+      data.records.forEach(function(sg){
+        var local=guests.find(function(g){return g.formNo===sg.formNo;});
+        if(local){sg.idPhoto=local.idPhoto||'';sg.livePhoto=local.livePhoto||'';}
+        else{sg.idPhoto='';sg.livePhoto='';}
+      });
+      guests=data.records;
+      saveLocal();
+    }
+    if(cb)cb();
+  };
+
+  var s=document.createElement('script');
+  s.src=SCRIPT+'?action=getGuests&callback='+cbName;
+  s.onerror=function(){clearTimeout(timer);cleanup(cbName);if(cb)cb();};
+  document.head.appendChild(s);
+}
+
+function setNextFormNo(){
   E('gFNo').value='JSR-'+String(guests.length+1).padStart(3,'0');
-  updateDash();
 }
 
-function doLogout(){ go('home'); E('aId').value=''; E('aPwd').value=''; E('loginErr').style.display='none'; }
-
-/* ── NAVIGATION ── */
-function go(p){
-  /* hide all */
-  E('pgHome').style.display='none';
-  ['pgAbout','pgGallery','pgBook','pgContact'].forEach(function(id){ var e=E(id); if(e){e.style.display='none';e.classList.remove('show');} });
-  E('pgAdmin').style.display='none'; E('pgAdmin').classList.remove('show');
-  E('pgDash').style.display='none'; E('pgDash').classList.remove('show');
-  E('pgPDF').style.display='none'; E('pgPDF').classList.remove('show');
-  E('mainFoot').style.display='none';
-
-  if(p==='home'){
-    E('pgHome').style.display='flex';
-  } else if(p==='about'){
-    E('pgAbout').style.display='block'; E('pgAbout').classList.add('show'); E('mainFoot').style.display='flex';
-  } else if(p==='gallery'){
-    E('pgGallery').style.display='block'; E('pgGallery').classList.add('show'); E('mainFoot').style.display='flex';
-  } else if(p==='book'){
-    E('pgBook').style.display='block'; E('pgBook').classList.add('show'); E('mainFoot').style.display='flex';
-  } else if(p==='contact'){
-    E('pgContact').style.display='block'; E('pgContact').classList.add('show'); E('mainFoot').style.display='flex';
-  } else if(p==='admin'){
-    E('pgAdmin').style.display='flex'; E('pgAdmin').classList.add('show');
-  } else if(p==='dash'){
-    E('pgDash').style.display='flex'; E('pgDash').classList.add('show');
-  }
-
-  document.querySelectorAll('.nav-links a').forEach(function(a){ a.classList.toggle('act', a.getAttribute('data-p')===p); });
-  E('navLinks').classList.remove('open');
-  window.scrollTo(0,0);
-}
-
-/* ── BOOKING FORM ── */
-function submitBooking(){
-  var name=gv('bName'),mob=gv('bMob'),addr=gv('bAddr');
-  var msg=E('bookMsg'),btn=E('bookBtn');
-  msg.style.display='none'; msg.className='msg';
-  if(!name||!mob||!addr){ msg.textContent='Please fill all required fields.'; msg.className='msg err'; return; }
-  if(!/^\d{10}$/.test(mob)){ msg.textContent='Enter valid 10-digit mobile number.'; msg.className='msg err'; return; }
-  btn.disabled=true; btn.innerHTML='<span class="spin"></span>Submitting...';
-  var fd=new FormData();
-  fd.append('action','bookRoom'); fd.append('Name',name); fd.append('Mobile',mob);
-  fd.append('Address',addr); fd.append('CheckIn',gv('bCin')); fd.append('CheckOut',gv('bCout'));
-  fd.append('RoomType',gv('bRoom')); fd.append('Timestamp',new Date().toLocaleString('en-IN'));
-  fetch(SCRIPT,{method:'POST',body:fd}).catch(function(){});
-  setTimeout(function(){
-    msg.textContent='✓ Booking request received! We will contact you at '+mob+' shortly.';
-    msg.className='msg ok'; btn.disabled=false; btn.textContent='Submit Booking Request';
-    E('bName').value=''; E('bMob').value=''; E('bAddr').value='';
-  },1000);
-}
-
-/* ── ADMIN PAGES ── */
+/* ════════════════════════════
+   ADMIN PAGES
+════════════════════════════ */
 function showAP(pid,btn){
-  document.querySelectorAll('.sb-item').forEach(function(i){ i.classList.remove('on'); });
+  document.querySelectorAll('.sb-item').forEach(function(i){i.classList.remove('on');});
   btn.classList.add('on');
-  document.querySelectorAll('.a-page').forEach(function(p){ p.classList.remove('on'); p.style.display='none'; });
-  var pg=E('ap-'+pid); pg.classList.add('on'); pg.style.display='block';
+  document.querySelectorAll('.a-page').forEach(function(p){p.classList.remove('on');p.style.display='none';});
+  var pg=E('ap-'+pid);pg.classList.add('on');pg.style.display='block';
   var t={dash:'Dashboard',form:'New Guest Entry',recs:'All Records'};
   E('aTitle').textContent=t[pid]||pid;
-  if(pid==='recs') renderRecs();
+  if(pid==='recs')renderRecs();
+  if(pid==='dash')updateDash();
 }
 
-/* ── FILE UPLOAD ── */
+/* ════════════════════════════
+   FILE UPLOAD
+════════════════════════════ */
 function handleUp(inputId,prevId,nameId,type){
-  var file=E(inputId).files[0]; if(!file) return;
+  var file=E(inputId).files[0];if(!file)return;
   E(nameId).textContent='✓ '+file.name;
   var reader=new FileReader();
   reader.onload=function(e){
     var b64=e.target.result;
-    if(type==='id') idB64=b64;
-    if(type==='ph') phB64=b64;
-    if(file.type.startsWith('image/')){ var img=E(prevId); img.src=b64; img.style.display='block'; }
+    if(type==='id')idB64=b64;
+    if(type==='ph')phB64=b64;
+    if(file.type.startsWith('image/')){var img=E(prevId);img.src=b64;img.style.display='block';}
   };
   reader.readAsDataURL(file);
 }
 
-/* ── SAVE GUEST ── */
+/* ════════════════════════════
+   SAVE GUEST
+════════════════════════════ */
 var REQ=['gFNo','gDate','gRoom','gCin','gName','gFather','gGender','gMob','gAddr','gCity','gState','gPin'];
+
 function saveGuest(){
-  for(var i=0;i<REQ.length;i++){ if(!gv(REQ[i])){ alert('Please fill all required (*) fields.'); E(REQ[i]).focus(); return; } }
-  if(!/^\d{10}$/.test(gv('gMob'))){ alert('Enter valid 10-digit mobile number.'); return; }
+  for(var i=0;i<REQ.length;i++){
+    if(!gv(REQ[i])){alert('Please fill all required (*) fields.');E(REQ[i]).focus();return;}
+  }
+  if(!/^\d{10}$/.test(gv('gMob'))){alert('Enter valid 10-digit mobile number.');return;}
+
   var g={
     formNo:gv('gFNo'),date:gv('gDate'),roomNo:gv('gRoom'),checkin:gv('gCin'),
     name:gv('gName'),father:gv('gFather'),gender:gv('gGender'),nationality:gv('gNat'),
@@ -739,64 +822,96 @@ function saveGuest(){
     permAddr:gv('gPerm'),travel:gv('gTravel'),purpose:gv('gPurpose'),
     idPhoto:idB64,livePhoto:phB64,savedAt:new Date().toLocaleString('en-IN')
   };
+
   var btn=E('saveBtn');
-  btn.disabled=true; btn.innerHTML='<span class="spin"></span>Saving...';
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span>Saving...';
+
   var fd=new FormData();
   fd.append('action','addGuest');
-  Object.keys(g).forEach(function(k){ if(k!=='idPhoto'&&k!=='livePhoto') fd.append(k,g[k]); });
+  Object.keys(g).forEach(function(k){if(k!=='idPhoto'&&k!=='livePhoto')fd.append(k,g[k]);});
   fetch(SCRIPT,{method:'POST',body:fd}).catch(function(){});
-  guests.push(g); saveLocal(); curGuest=g; updateDash();
+
+  guests.push(g);saveLocal();curGuest=g;
+  updateDash();
   E('succBar').classList.add('on');
-  btn.disabled=false; btn.innerHTML='Save &amp; Generate PDF';
+  btn.disabled=false;btn.innerHTML='Save &amp; Generate PDF';
+  setNextFormNo();
   window.scrollTo(0,0);
 }
 
 function clearForm(){
-  REQ.concat(['gNat','gOcc','gEmail','gPerm','gTravel','gPurpose']).forEach(function(id){ var e=E(id); if(e) e.value=''; });
+  REQ.concat(['gNat','gOcc','gEmail','gPerm','gTravel','gPurpose']).forEach(function(id){var e=E(id);if(e)e.value='';});
   E('gNat').value='Indian';
-  E('idName').textContent=''; E('phName').textContent='';
-  E('idPrev').style.display='none'; E('phPrev').style.display='none';
-  idB64=''; phB64=''; E('succBar').classList.remove('on');
-  E('gFNo').value='JSR-'+String(guests.length+1).padStart(3,'0');
+  E('idName').textContent='';E('phName').textContent='';
+  E('idPrev').style.display='none';E('phPrev').style.display='none';
+  idB64='';phB64='';E('succBar').classList.remove('on');
+  setNextFormNo();
 }
 
-/* ── DASHBOARD ── */
+/* ════════════════════════════
+   DASHBOARD
+════════════════════════════ */
 function updateDash(){
   E('sTotal').textContent=guests.length;
   var today=new Date().toISOString().split('T')[0];
-  E('sToday').textContent=guests.filter(function(g){ return g.date===today; }).length;
-  var rooms=[...new Set(guests.map(function(g){ return g.roomNo; }))];
-  E('sRooms').textContent=rooms.length||'0';
+  E('sToday').textContent=guests.filter(function(g){return g.date===today;}).length;
+  var rooms=[...new Set(guests.map(function(g){return g.roomNo;}))];
+  E('sRooms').textContent=rooms.length;
   var mo=new Date().getMonth(),yr=new Date().getFullYear();
-  E('sMonth').textContent=guests.filter(function(g){ var d=new Date(g.date); return d.getMonth()===mo&&d.getFullYear()===yr; }).length;
-  var tb=E('dashTb'), recent=guests.slice(-6).reverse();
-  if(!recent.length){ tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">No entries yet</td></tr>'; return; }
-  tb.innerHTML=recent.map(function(g){ return '<tr><td>'+g.formNo+'</td><td>'+g.name+'</td><td>'+g.roomNo+'</td><td style="font-size:11px">'+g.checkin+'</td><td><span class="badge-in">Checked In</span></td></tr>'; }).join('');
-}
-
-/* ── RECORDS ── */
-function renderRecs(){
-  var tb=E('recsTb');
-  E('recCount').textContent=guests.length+' record(s)';
-  if(!guests.length){ tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">No records found</td></tr>'; return; }
-  tb.innerHTML=guests.slice().reverse().map(function(g){
-    return '<tr><td>'+g.formNo+'</td><td>'+g.name+'</td><td>'+g.roomNo+'</td><td style="font-size:11px">'+g.checkin+'</td><td>'+g.mobile+'</td><td>'+(g.purpose||'-')+'</td>'
-    +'<td><button onclick="loadPDF(\''+g.formNo+'\')" style="padding:5px 12px;background:var(--gold);color:#0a0907;border:none;cursor:pointer;font-size:10px;font-weight:700;font-family:Arial,sans-serif">PDF</button></td></tr>';
+  E('sMonth').textContent=guests.filter(function(g){var d=new Date(g.date);return d.getMonth()===mo&&d.getFullYear()===yr;}).length;
+  var tb=E('dashTb'),recent=guests.slice(-6).reverse();
+  if(!recent.length){tb.innerHTML='<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">No entries yet</td></tr>';return;}
+  tb.innerHTML=recent.map(function(g){
+    return '<tr><td>'+g.formNo+'</td><td>'+g.name+'</td><td>'+g.roomNo+'</td><td style="font-size:11px">'+g.checkin+'</td><td><span class="badge-in">Checked In</span></td></tr>';
   }).join('');
 }
-function loadPDF(fn){ curGuest=guests.find(function(g){ return g.formNo===fn; }); if(curGuest) buildPDF(); }
 
-/* ── BUILD PDF ── */
+/* ════════════════════════════
+   ALL RECORDS — loads from sheet
+════════════════════════════ */
+function renderRecs(){
+  var tb=E('recsTb');
+  tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)"><span class="spin spin-gold"></span> Loading from Google Sheet...</td></tr>';
+  E('recCount').textContent='';
+
+  syncSheet(function(){
+    E('recCount').textContent=guests.length+' record(s)';
+    if(!guests.length){
+      tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">No records found</td></tr>';
+      return;
+    }
+    tb.innerHTML=guests.slice().reverse().map(function(g){
+      return '<tr>'
+        +'<td>'+g.formNo+'</td>'
+        +'<td>'+g.name+'</td>'
+        +'<td>'+g.roomNo+'</td>'
+        +'<td style="font-size:11px">'+g.checkin+'</td>'
+        +'<td>'+g.mobile+'</td>'
+        +'<td>'+(g.purpose||'-')+'</td>'
+        +'<td><button onclick="loadGuestPDF(\''+g.formNo+'\')" style="padding:5px 12px;background:var(--gold);color:#0a0907;border:none;cursor:pointer;font-size:10px;font-weight:700;font-family:Arial,sans-serif">PDF</button></td>'
+        +'</tr>';
+    }).join('');
+  });
+}
+
+function loadGuestPDF(fn){curGuest=guests.find(function(g){return g.formNo===fn;});if(curGuest)buildPDF();}
+
+/* ════════════════════════════
+   PDF BUILDER
+════════════════════════════ */
 function buildPDF(){
-  if(!curGuest) return;
-  var g=curGuest, h='';
-  h+='<div class="pdf-head"><div class="pdf-hotel"><h1>JSR RESIDENCY</h1><p>B-9/61-62, Sector 5, Rohini, New Delhi &ndash; 110085<br>Near Rajiv Gandhi Cancer Hospital &nbsp;|&nbsp; Ph: 9999484810<br>Manager: Vikas Singh</p></div>';
+  if(!curGuest)return;
+  var g=curGuest,h='';
+  h+='<div class="pdf-head">';
+  h+='<div class="pdf-hotel"><h1>JSR RESIDENCY</h1><p>B-9/61-62, Sector 5, Rohini, New Delhi &ndash; 110085<br>Near Rajiv Gandhi Cancer Hospital &nbsp;|&nbsp; Ph: 9999484810<br>Manager: Vikas Singh</p></div>';
   h+='<div class="pdf-reg"><h2>Guest Register</h2><p>Form No: <strong>'+g.formNo+'</strong></p><p>Date: '+g.date+'</p></div></div>';
   h+='<div class="pdf-body-row"><div class="pdf-photos">';
   h+='<div class="pdf-pbox">'+(g.livePhoto&&g.livePhoto.startsWith('data:image')?'<img src="'+g.livePhoto+'" alt="Photo">':'<span>Live<br>Photo</span>')+'</div>';
   h+='<div class="pdf-pbox">'+(g.idPhoto&&g.idPhoto.startsWith('data:image')?'<img src="'+g.idPhoto+'" alt="ID">':'<span>ID<br>Proof</span>')+'</div>';
   h+='</div><div class="pdf-cols">';
-  h+='<div class="pdf-s"><div class="pdf-s-title">Room &amp; Check-in Details</div><div class="pdf-g2"><div class="pdf-f"><label>Room Number</label><p>'+g.roomNo+'</p></div><div class="pdf-f"><label>Check-in</label><p>'+g.checkin+'</p></div></div></div>';
+  h+='<div class="pdf-s"><div class="pdf-s-title">Room &amp; Check-in</div><div class="pdf-g2">';
+  h+='<div class="pdf-f"><label>Room Number</label><p>'+g.roomNo+'</p></div>';
+  h+='<div class="pdf-f"><label>Check-in Date &amp; Time</label><p>'+g.checkin+'</p></div></div></div>';
   h+='<div class="pdf-s"><div class="pdf-s-title">Guest Information</div><div class="pdf-g2">';
   h+='<div class="pdf-f"><label>Guest Name</label><p>'+g.name+'</p></div>';
   h+='<div class="pdf-f"><label>Father / Husband Name</label><p>'+g.father+'</p></div>';
@@ -804,12 +919,12 @@ function buildPDF(){
   h+='<div class="pdf-f"><label>Nationality</label><p>'+(g.nationality||'Indian')+'</p></div>';
   h+='<div class="pdf-f"><label>Occupation</label><p>'+(g.occupation||'-')+'</p></div>';
   h+='<div class="pdf-f"><label>Mobile</label><p>'+g.mobile+'</p></div>';
-  if(g.email) h+='<div class="pdf-f"><label>Email</label><p>'+g.email+'</p></div>';
+  if(g.email)h+='<div class="pdf-f"><label>Email</label><p>'+g.email+'</p></div>';
   h+='</div></div>';
-  h+='<div class="pdf-s"><div class="pdf-s-title">Address Details</div><div class="pdf-g2">';
+  h+='<div class="pdf-s"><div class="pdf-s-title">Address</div><div class="pdf-g2">';
   h+='<div class="pdf-f"><label>Current Address</label><p>'+g.address+'</p></div>';
-  h+='<div class="pdf-f"><label>Permanent Address</label><p>'+(g.permAddr||g.address)+'</p></div>';
-  h+='</div><div class="pdf-g3" style="margin-top:6px">';
+  h+='<div class="pdf-f"><label>Permanent Address</label><p>'+(g.permAddr||g.address)+'</p></div></div>';
+  h+='<div class="pdf-g3" style="margin-top:6px">';
   h+='<div class="pdf-f"><label>City</label><p>'+g.city+'</p></div>';
   h+='<div class="pdf-f"><label>State</label><p>'+g.state+'</p></div>';
   h+='<div class="pdf-f"><label>Pin Code</label><p>'+g.pin+'</p></div></div></div>';
@@ -820,18 +935,19 @@ function buildPDF(){
   h+='<div class="pdf-signs"><div class="pdf-sign-box"><div class="sl"></div><p>Guest Signature</p></div><div class="pdf-sign-box"><div class="sl"></div><p>Manager Signature</p></div><div class="pdf-sign-box"><div class="sl"></div><p>Verified By</p></div></div>';
   h+='<div class="pdf-foot-bar"><span>JSR RESIDENCY &mdash; Official Guest Register</span><span>Generated: '+new Date().toLocaleString('en-IN')+'</span></div>';
   E('pdfDoc').innerHTML=h;
-  /* hide everything show PDF */
-  ['pgHome','pgAbout','pgGallery','pgBook','pgContact','pgAdmin','pgDash','mainFoot'].forEach(function(id){ E(id).style.display='none'; });
-  E('pgPDF').style.display='block'; E('pgPDF').classList.add('show');
+  // Hide all, show PDF
+  ALL_PAGES.forEach(function(id){var el=E(id);if(el)el.classList.remove('active');});
+  E('mainFoot').classList.remove('show');
+  E('pgPDF').classList.add('active');
   window.scrollTo(0,0);
 }
 
 function closePDF(){
-  E('pgPDF').style.display='none'; E('pgPDF').classList.remove('show');
-  E('pgDash').style.display='flex'; E('pgDash').classList.add('show');
+  E('pgPDF').classList.remove('active');
+  E('pgDash').classList.add('active');
 }
 
-/* init */
+// Init
 updateDash();
 </script>
 </body>
