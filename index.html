@@ -82,25 +82,6 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;min-height:100vh
 .feat h4{font-size:28px;color:var(--gold);margin-bottom:6px;font-weight:300}
 .feat p{font-size:11px;color:var(--muted2);font-family:Arial,sans-serif}
 
-/* ══ GALLERY ══ */
-#pgGallery{background:var(--dark)}
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:32px}
-.g-box{background:var(--mid);border:1px solid rgba(201,168,76,0.1);aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;cursor:pointer;transition:border-color 0.3s}
-.g-box:nth-child(1){grid-column:span 2;aspect-ratio:unset;height:240px}
-.g-box:hover{border-color:var(--gold)}
-.g-ico{font-size:28px;opacity:0.2}
-.g-txt{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);font-family:Arial,sans-serif}
-.g-over{position:absolute;inset:0;background:rgba(201,168,76,0.08);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s}
-.g-over span{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold);font-family:Arial,sans-serif}
-.g-box:hover .g-over{opacity:1}
-.rooms-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
-.room-card{background:var(--card);border:1px solid rgba(201,168,76,0.12);padding:28px 22px;text-align:center;transition:border-color 0.3s,transform 0.3s}
-.room-card:hover{border-color:var(--gold);transform:translateY(-4px)}
-.room-card .ri{font-size:28px;margin-bottom:14px;display:block}
-.room-card h3{font-size:20px;font-weight:400;color:var(--cream);margin-bottom:8px}
-.room-card p{font-size:12px;color:var(--muted2);line-height:1.8;font-family:Arial,sans-serif}
-.room-price{margin-top:14px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:Arial,sans-serif}
-
 /* ══ BOOK ══ */
 #pgBook{background:var(--dark2)}
 .book-wrap{max-width:640px;margin:32px auto 0;background:var(--mid);border:1px solid rgba(201,168,76,0.2);padding:40px;position:relative}
@@ -300,6 +281,80 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;min-height:100vh
   #pgPDF{display:block!important;padding-top:0!important}
   .pdf-doc{padding:12px!important}
 }
+
+/* ══ GALLERY ══ */
+#pgGallery{background:var(--dark)}
+.g-ico{font-size:28px;opacity:0.2;position:relative;z-index:1}
+.g-txt{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);font-family:Arial,sans-serif;position:relative;z-index:1}
+.g-over{position:absolute;inset:0;background:rgba(201,168,76,0.08);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s;z-index:2;pointer-events:none}
+.g-over span{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold);font-family:Arial,sans-serif}
+.g-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;pointer-events:none}
+.g-box.has-img .g-img{display:block}
+.g-box.has-img .g-ico,.g-box.has-img .g-txt{display:none}
+.g-box.has-img .g-over{background:rgba(0,0,0,0.35)}
+.g-box.has-img:hover .g-over{opacity:1}
+.g-caption{display:none;position:absolute;bottom:0;left:0;right:0;z-index:3;padding:10px 14px;pointer-events:none;
+  background:linear-gradient(transparent,rgba(0,0,0,0.72));font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--cream2);font-family:Arial,sans-serif}
+.g-box.has-img .g-caption{display:block}
+/* Slider */
+.gal-slider-wrap{position:relative;margin-top:32px;overflow:hidden}
+.gal-slides{display:flex;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1)}
+.gal-slide{min-width:100%;flex-shrink:0}
+.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:240px 200px;gap:10px}
+.g-box{background:var(--mid);border:1px solid rgba(201,168,76,0.1);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;
+  cursor:pointer;transition:border-color 0.3s}
+.g-box.wide{grid-column:span 2}
+.g-box:hover{border-color:var(--gold)}
+.g-box:hover .g-over{opacity:1}
+.gal-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:44px;height:44px;
+  background:rgba(10,9,7,0.75);border:1px solid rgba(201,168,76,0.35);color:var(--gold);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;
+  transition:background 0.25s,border-color 0.25s;user-select:none}
+.gal-arrow:hover{background:rgba(201,168,76,0.15);border-color:var(--gold)}
+.gal-arrow.prev{left:12px}
+.gal-arrow.next{right:12px}
+.gal-dots{display:flex;justify-content:center;gap:10px;margin-top:18px}
+.gal-dot{width:28px;height:2px;background:rgba(201,168,76,0.25);cursor:pointer;transition:background 0.3s}
+.gal-dot.on{background:var(--gold)}
+/* Room cards */
+.rooms-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.room-card{background:var(--card);border:1px solid rgba(201,168,76,0.12);padding:28px 22px;text-align:center;transition:border-color 0.3s,transform 0.3s}
+.room-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+.room-card .ri{font-size:28px;margin-bottom:14px;display:block}
+.room-card h3{font-size:20px;font-weight:400;color:var(--cream);margin-bottom:8px}
+.room-card p{font-size:12px;color:var(--muted2);line-height:1.8;font-family:Arial,sans-serif}
+.room-price{margin-top:14px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:Arial,sans-serif}
+/* Lightbox */
+#lightbox{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity 0.35s,background 0.35s}
+#lightbox.open{background:rgba(0,0,0,0.93);opacity:1;pointer-events:all}
+#lightbox .lb-inner{position:relative;max-width:92vw;max-height:88vh;
+  transform:scale(0.85);transition:transform 0.38s cubic-bezier(0.34,1.3,0.64,1)}
+#lightbox.open .lb-inner{transform:scale(1)}
+#lightbox img{display:block;max-width:92vw;max-height:88vh;object-fit:contain;
+  border:1px solid rgba(201,168,76,0.25);box-shadow:0 32px 80px rgba(0,0,0,0.7)}
+#lightbox .lb-caption{position:absolute;bottom:0;left:0;right:0;padding:14px 18px;
+  background:linear-gradient(transparent,rgba(0,0,0,0.8));
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--cream2);font-family:Arial,sans-serif}
+#lightbox .lb-close{position:absolute;top:-20px;right:-20px;width:44px;height:44px;
+  border-radius:50%;background:var(--gold);color:#0a0907;border:none;cursor:pointer;
+  font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s,transform 0.25s;box-shadow:0 4px 18px rgba(0,0,0,0.6);z-index:10}
+#lightbox .lb-close:hover{background:var(--gold2);transform:scale(1.15) rotate(90deg)}
+#lightbox .lb-prev,#lightbox .lb-next{position:absolute;top:50%;transform:translateY(-50%);
+  width:48px;height:48px;background:rgba(10,9,7,0.8);border:1px solid rgba(201,168,76,0.4);
+  color:var(--gold);font-size:22px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background 0.2s,border-color 0.2s;user-select:none}
+#lightbox .lb-prev{left:-62px}
+#lightbox .lb-next{right:-62px}
+#lightbox .lb-prev:hover,#lightbox .lb-next:hover{background:rgba(201,168,76,0.15);border-color:var(--gold)}
+#lightbox .lb-counter{position:absolute;top:-44px;left:50%;transform:translateX(-50%);
+  font-size:10px;letter-spacing:3px;color:var(--muted2);font-family:Arial,sans-serif;white-space:nowrap}
+
 </style>
 </head>
 <body>
@@ -363,12 +418,125 @@ body{font-family:Georgia,serif;background:#0a0907;color:#f0e8d8;min-height:100vh
     <span class="sec-eyebrow">Our Spaces</span>
     <h2 class="sec-title">Gallery</h2>
     <div class="gold-hr"></div>
-    <div class="gallery-grid">
-      <div class="g-box"><div class="g-ico">&#127968;</div><div class="g-txt">Lobby &amp; Reception</div><div class="g-over"><span>View</span></div></div>
-      <div class="g-box"><div class="g-ico">&#128705;</div><div class="g-txt">Deluxe Room</div><div class="g-over"><span>View</span></div></div>
-      <div class="g-box"><div class="g-ico">&#128699;</div><div class="g-txt">Private Bathroom</div><div class="g-over"><span>View</span></div></div>
-      <div class="g-box"><div class="g-ico">&#128250;</div><div class="g-txt">Sitting Lounge</div><div class="g-over"><span>View</span></div></div>
-      <div class="g-box"><div class="g-ico">&#127762;</div><div class="g-txt">Standard Room</div><div class="g-over"><span>View</span></div></div>
+    <div class="gal-slider-wrap" id="galWrap">
+      <div class="gal-slides" id="galSlides">
+
+        <!-- Slide 1 -->
+        <div class="gal-slide">
+          <div class="gal-grid">
+            <div class="g-box wide" data-img="https://i.ibb.co/ZpB3LT6K/Chat-GPT-Image-May-14-2026-05-47-42-PM.png">
+              <img class="g-img" src="" alt="Lobby &amp; Reception">
+              <div class="g-ico">&#127968;</div><div class="g-txt">Lobby &amp; Reception</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+            <div class="g-box" data-img="https://i.ibb.co/Zpg9HFBt/Gemini-Generated-Image-m5ut2ym5ut2ym5ut.png">
+              <img class="g-img" src="" alt="Deluxe Room">
+              <div class="g-ico">&#128705;</div><div class="g-txt">Deluxe Room</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+            <div class="g-box" data-img="https://i.ibb.co/DgTJw3L1/Gemini-Generated-Image-2hrkgz2hrkgz2hrk.png">
+              <img class="g-img" src="" alt="Private Bathroom">
+              <div class="g-ico">&#128699;</div><div class="g-txt">Private Bathroom</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+            <div class="g-box" data-img="https://i.ibb.co/4wcwSTYf/Gemini-Generated-Image-jz31b8jz31b8jz31.png">
+              <img class="g-img" src="" alt="Sitting Lounge">
+              <div class="g-ico">&#128250;</div><div class="g-txt">Sitting Lounge</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption">Sitting Lounge</div>
+            </div>
+            <div class="g-box" data-img="https://i.ibb.co/SDLwhxjd/Whats-App-Image-2026-05-15-at-4-48-26-PM.jpg">
+              <img class="g-img" src="" alt="Standard Room">
+              <div class="g-ico">&#127762;</div><div class="g-txt">Standard Room</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="gal-slide">
+          <div class="gal-grid">
+            <div class="g-box wide" data-img="https://i.ibb.co/SDLwhxjd/Whats-App-Image-2026-05-15-at-4-48-26-PM.jpg">
+              <img class="g-img" src="" alt="Family Room">
+              <div class="g-ico">&#128106;</div><div class="g-txt">Family Room</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+            <div class="g-box" data-img="https://i.ibb.co/Zpg9HFBt/Gemini-Generated-Image-m5ut2ym5ut2ym5ut.png">
+              <img class="g-img" src="" alt="Breakfast Area">
+              <div class="g-ico">&#9749;</div><div class="g-txt">Breakfast Area</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+            <div class="g-box" data-img="https://i.ibb.co/DgTJw3L1/Gemini-Generated-Image-2hrkgz2hrkgz2hrk.png">
+              <img class="g-img" src="" alt="Terrace View">
+              <div class="g-ico">&#128747;</div><div class="g-txt">Terrace View</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+            <div class="g-box" data-img="https://i.ibb.co/4wcwSTYf/Gemini-Generated-Image-jz31b8jz31b8jz31.png">
+              <img class="g-img" src="" alt="Hotel Exterior">
+              <div class="g-ico">&#127963;</div><div class="g-txt">Hotel Exterior</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+            <div class="g-box" data-img="https://i.ibb.co/SDLwhxjd/Whats-App-Image-2026-05-15-at-4-48-26-PM.jpg">
+              <img class="g-img" src="" alt="Rohini Location">
+              <div class="g-ico">&#128205;</div><div class="g-txt">Rohini Location</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="gal-slide">
+          <div class="gal-grid">
+            <div class="g-box wide" data-img="https://i.ibb.co/ZpB3LT6K/Chat-GPT-Image-May-14-2026-05-47-42-PM.png">
+              <img class="g-img" src="" alt="Night View">
+              <div class="g-ico">&#127774;</div><div class="g-txt">Night View</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+            <div class="g-box" data-img="https://i.ibb.co/SDLwhxjd/Whats-App-Image-2026-05-15-at-4-48-26-PM.jpg">
+              <img class="g-img" src="" alt="Reception Desk">
+              <div class="g-ico">&#128336;</div><div class="g-txt">Reception Desk</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+            <div class="g-box" data-img="https://i.ibb.co/Zpg9HFBt/Gemini-Generated-Image-m5ut2ym5ut2ym5ut.png">
+              <img class="g-img" src="" alt="Corridor">
+              <div class="g-ico">&#128715;</div><div class="g-txt">Corridor</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+            <div class="g-box" data-img="https://i.ibb.co/DgTJw3L1/Gemini-Generated-Image-2hrkgz2hrkgz2hrk.png">
+              <img class="g-img" src="" alt="Room Decor">
+              <div class="g-ico">&#127800;</div><div class="g-txt">Room Decor</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+            <div class="g-box" data-img="https://i.ibb.co/4wcwSTYf/Gemini-Generated-Image-jz31b8jz31b8jz31.png">
+              <img class="g-img" src="" alt="Nearby Metro">
+              <div class="g-ico">&#128645;</div><div class="g-txt">Nearby Metro</div>
+              <div class="g-over"><span>View</span></div>
+              <div class="g-caption"></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /gal-slides -->
+      <div class="gal-arrow prev" id="galPrev">&#8592;</div>
+      <div class="gal-arrow next" id="galNext">&#8594;</div>
+    </div>
+    <div class="gal-dots" id="galDots">
+      <div class="gal-dot on" onclick="galGoTo(0)"></div>
+      <div class="gal-dot" onclick="galGoTo(1)"></div>
+      <div class="gal-dot" onclick="galGoTo(2)"></div>
     </div>
     <div class="rooms-row">
       <div class="room-card"><span class="ri">&#128705;</span><h3>Standard Room</h3><p>Cozy AC room with essential amenities for a comfortable stay.</p><div class="room-price">Available on Request</div></div>
@@ -1005,5 +1173,99 @@ function closePDF(){
 // Init
 updateDash();
 </script>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <div class="lb-inner">
+    <button class="lb-close" id="lbClose">&#x2715;</button>
+    <div class="lb-counter" id="lbCtr"></div>
+    <div class="lb-prev" id="lbPrev">&#8592;</div>
+    <div class="lb-next" id="lbNext">&#8594;</div>
+    <img id="lbImg" src="" alt="">
+    <div class="lb-caption" id="lbCap"></div>
+  </div>
+</div>
+
+<script>
+/* ── Gallery image loader ── */
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.g-box[data-img]').forEach(function(box){
+    var url = box.getAttribute('data-img');
+    if(url && url.trim() !== ''){
+      var img = box.querySelector('.g-img');
+      if(img){ img.src = url; }
+      box.classList.add('has-img');
+    }
+  });
+
+  /* ── Gallery Slider ── */
+  var cur=0, total=3;
+  var slides = document.getElementById('galSlides');
+  var dots = document.querySelectorAll('.gal-dot');
+  function galGo(n){
+    cur = (n + total) % total;
+    slides.style.transform = 'translateX(-' + cur*100 + '%)';
+    dots.forEach(function(d,i){ d.classList.toggle('on', i===cur); });
+  }
+  document.getElementById('galPrev').addEventListener('click', function(){ galGo(cur-1); });
+  document.getElementById('galNext').addEventListener('click', function(){ galGo(cur+1); });
+  window.galGoTo = galGo;
+  setInterval(function(){ galGo(cur+1); }, 5000);
+
+  /* ── Lightbox ── */
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lbImg');
+  var lbCap = document.getElementById('lbCap');
+  var lbCtr = document.getElementById('lbCtr');
+  var allBoxes = [], curIdx = 0;
+
+  function getImages(){
+    return Array.from(document.querySelectorAll('.g-box.has-img'));
+  }
+  function lbOpen(boxes, idx){
+    allBoxes = boxes; curIdx = idx;
+    lbRender();
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function lbClose(){
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function lbRender(){
+    var box = allBoxes[curIdx];
+    var img = box.querySelector('.g-img');
+    var cap = box.querySelector('.g-caption');
+    lbImg.src = img ? img.src : '';
+    lbImg.alt = img ? img.alt : '';
+    lbCap.textContent = cap ? cap.textContent.trim() : '';
+    lbCtr.textContent = (curIdx+1) + ' / ' + allBoxes.length;
+  }
+  function lbPrev(){ curIdx = (curIdx - 1 + allBoxes.length) % allBoxes.length; lbRender(); }
+  function lbNext(){ curIdx = (curIdx + 1) % allBoxes.length; lbRender(); }
+
+  /* Click on gallery box — use capture so it fires even if inner elements absorb */
+  document.getElementById('galSlides').addEventListener('click', function(e){
+    var box = e.target.closest('.g-box.has-img');
+    if(box){
+      var boxes = getImages();
+      var idx = boxes.indexOf(box);
+      lbOpen(boxes, idx < 0 ? 0 : idx);
+    }
+  }, true);
+
+  document.getElementById('lbClose').addEventListener('click', lbClose);
+  document.getElementById('lbPrev').addEventListener('click', lbPrev);
+  document.getElementById('lbNext').addEventListener('click', lbNext);
+  lb.addEventListener('click', function(e){ if(e.target === lb) lbClose(); });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape') lbClose();
+    if(e.key === 'ArrowLeft') lbPrev();
+    if(e.key === 'ArrowRight') lbNext();
+  });
+});
+</script>
+
 </body>
 </html>
